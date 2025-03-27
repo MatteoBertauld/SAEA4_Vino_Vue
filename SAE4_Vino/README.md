@@ -27,3 +27,34 @@ npm run dev
 ```sh
 npm run build
 ```
+## GitHub commands
+
+### Pour voir les liens actif github
+
+```git
+git remote -v
+``` 
+### Pour ajouter un lien git
+
+```git
+git remote add origin lienGIt.git
+```
+
+## A Faire à chaque fois
+
+```git
+git add .
+
+git commit -m "fix"
+
+git push origin master
+
+git push origin tabranche
+```
+
+## Si problème connexion faire :
+
+```git
+git config --global user.name "ton nom"
+git config --global user.email "email@gmail.com"
+```
