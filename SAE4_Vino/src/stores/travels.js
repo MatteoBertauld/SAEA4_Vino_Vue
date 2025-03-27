@@ -13,8 +13,8 @@ export const useTravelsStore = defineStore('travels', () => {
   axios.get(urlBase+"sejours/getsejours")
   .then(response => {
       list.value = response.data
-      console.log(list)
   })
+  
   
 
   return { list } 
