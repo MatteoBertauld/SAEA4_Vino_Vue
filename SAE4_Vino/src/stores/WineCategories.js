@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, compile } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
@@ -17,5 +17,7 @@ export const useWineCatStore = defineStore('wineCategories', () => {
   
 
 
-  return { list } 
+  const filteredList = computed(() => list.value.filter(s => s.idduree == -1))
+
+  return { list, filteredList } 
 })
