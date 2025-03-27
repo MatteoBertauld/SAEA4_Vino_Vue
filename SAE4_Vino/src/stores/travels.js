@@ -15,7 +15,15 @@ export const useTravelsStore = defineStore('travels', () => {
       list.value = response.data
   })
   
+  const vineryFilter = -1;
   
+  function updateVineryFilter(idVinery) {
+    // vineryFilter = idVinery;
+  }
+  
+  
+  const filteredList = computed(() => list.value.filter(s => s.idduree != -1 && 
+    s.idcategorievignoble == vineryFilter))
 
-  return { list } 
+  return { list, filteredList, updateVineryFilter } 
 })

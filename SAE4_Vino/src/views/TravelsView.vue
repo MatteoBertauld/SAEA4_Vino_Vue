@@ -11,6 +11,9 @@ const travels = useTravelsStore();
     <div class="filtrecontainer">
       <select name="" id="vineryFilter">
         <option value="default">Quel vignoble ? </option>
+        <option :value="2" @click="travels.updateVineryFilter(2)">2 </option>
+        <option :value="3" @click="travels.updateVineryFilter(3)">3 </option>
+        <option :value="4" @click="travels.updateVineryFilter(4)">4 </option>
         <!-- <option v-for="vinery in vinerys.list" value=""></option> -->
       </select>
       <select name="" id="timeFilter">
