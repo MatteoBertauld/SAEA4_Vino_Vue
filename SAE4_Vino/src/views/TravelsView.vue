@@ -1,28 +1,44 @@
-<script setup>
+<script setup defer>
 import Travel from '@/components/Travel.vue';
 
 import { useTravelsStore } from '@/stores/travels';
+import { ref, computed } from 'vue';
 const travels = useTravelsStore();
+
+const vineryFilter = ref(0);
+const timespanFilter = ref(0)
+const locationFilter =ref(0)
+
+var currentVinery;
+
+const filteredTravels = computed(() => {
+  if (vineryFilter.value == 0){
+    return travels.list
+  }
+  else {
+    return travels.list.filter(
+    s => s.idcategorievignoble == vineryFilter.value)
+  }
+})
+console.log("hip");
+
 </script>
 
 <template>
   <div class="sectionContainer">
 
     <div class="filtrecontainer">
-      <select name="" id="vineryFilter">
-        <option value="default">Quel vignoble ? </option>
-        <option :value="2" @click="travels.updateVineryFilter(2)">2 </option>
-        <option :value="3" @click="travels.updateVineryFilter(3)">3 </option>
-        <option :value="4" @click="travels.updateVineryFilter(4)">4 </option>
-        <!-- <option v-for="vinery in vinerys.list" value=""></option> -->
+      <select name="" id="vineryFilter" v-model="vineryFilter">
+        <option :value="0">Quel vignoble ? </option>
+        <option v-for="vinery in travels.vineries" :value="vinery.idcategorievignoble"> {{ vinery.libellecategorievignoble }} </option>
       </select>
-      <select name="" id="timeFilter">
-        <option value="default">Localité ? </option>
-        <!-- <option v-for="vinery in vinerys.list" value=""></option> -->
+      <select v-if="true" v-model="currentVinery" name="" id="timeFilter">
+        <option :value="0" >Localité ? </option>
+        <option v-for="location in travels.locations" :value="location.idlocalite"> {{ location.libellelocalite }}</option>
       </select>
       <select name="" id="forWhoFilter">
         <option value="default">Durée ? </option>
-        <!-- <option v-for="vinery in vinerys.list" value=""></option> -->
+        <option v-for="timespan in travels.timespans" :value="timespan.idduree"> {{ timespan.libelleduree }}</option>
       </select>
       <select name="" id="desireFilter">
         <option value="default">Pour qui ? </option>
@@ -31,37 +47,37 @@ const travels = useTravelsStore();
       <select name="" id="desireFilter">
         <option value="default">Une envie particulière ? </option>
         <!-- <option v-for="vinery in vinerys.list" value=""></option> -->
-    </select>
+      </select>
+    </div>
+    <section class="bigContainer">
+      <Travel v-for="travel in filteredTravels" :travel="travel"></Travel>
+    </section>
   </div>
-  <section class="bigContainer">
-    <Travel v-for="travel in travels.list" :travel="travel"></Travel>
-  </section>
-</div>
-  
+
 </template>
 
 <style>
-
-.sectionContainer{
+.sectionContainer {
   max-width: 80vw;
   margin-left: auto;
   margin-right: auto;
 }
-.bigContainer{
+
+.bigContainer {
   display: flex;
   flex-wrap: wrap;
   margin: 100px 0 100px 0;
   justify-content: space-around;
 }
 
-.filtrecontainer{
+.filtrecontainer {
   width: 80vw;
   display: flex;
   justify-content: space-around;
 }
 
-.filtrecontainer select{
-  min-width:200px ;
+.filtrecontainer select {
+  min-width: 200px;
   width: 15vw;
   display: flex;
   padding: .25rem .75rem;

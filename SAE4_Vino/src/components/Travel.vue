@@ -11,7 +11,7 @@ defineProps({
 <template>
     
     <article>
-        <h2 class="centre"><a :href="'/travels/'+travel.idsejour" class="hovershiny">{{ travel.titresejour }}</a></h2>
+        <h2 class="centre"><a :href="'/travel/'+travel.idsejour" class="hovershiny">{{ travel.titresejour }}</a></h2>
         <div class="inlineblck">
             <img :src="'/src/assets/images/sejours/'+travel.photosejour" alt="" class="mainimage">
             <div class="petitContainer">
@@ -20,7 +20,7 @@ defineProps({
                     <img src="" alt="">
                 </div>
                 <div class="column">
-                    <p>{{ travel.vinery }}</p>
+                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
                     <hr>
                     <p>À partir de <span class="shiny">{{ travel.prixsejour }}€</span> par personne</p>
                     <p>{{ travel.descriptionsejour }}</p>
