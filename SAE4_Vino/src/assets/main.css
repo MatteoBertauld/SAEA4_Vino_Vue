@@ -22,3 +22,33 @@ body{
   align-items: center;
   width: 60%;
 }
+
+.button {
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: inherit;
+  background-color: #e2e8f0;
+  border: 2px solid transparent;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 100ms, color 100ms, border-color 100ms;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #b6005e;
+  color: white;
+}
+
+.button:disabled {
+  color: #718096;
+  cursor: not-allowed;
+}
+
+.button.button-sm {
+  padding: 0.25rem 0.75rem;
+}

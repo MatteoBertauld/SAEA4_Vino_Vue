@@ -115,7 +115,7 @@ nav{
 footer{
   background-color:rgb(40,28,28);  
   color: white;
-  height: 30vh;
+  height: 10vh;
   text-align: center;
   padding: 5px;
 
