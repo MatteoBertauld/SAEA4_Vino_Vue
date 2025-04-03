@@ -117,8 +117,9 @@ footer{
   color: white;
   height: 10vh;
   text-align: center;
+  justify-content: center;
+  align-items: center;
   padding: 5px;
-
 }
 
 footer nav{
@@ -126,7 +127,7 @@ footer nav{
 
   display: flex;
   flex-direction:row;
-  margin: 4vw;
+  margin: 4vh;
 }
 
 .footerlink{

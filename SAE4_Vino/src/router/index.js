@@ -6,6 +6,7 @@ import AideView from '@/views/AideView.vue'
 import MentionsLegalesView from '@/views/legal/MentionsLegalesView.vue'
 import PolitiqueConfidentialiteView from '@/views/legal/PolitiqueConfidentialiteView.vue'
 import ConditionsDeVentesView from '@/views/legal/ConditionsDeVentesView.vue'
+import OpinionsView from '@/views/OpinionsView.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
+    },
+    {
+      path: '/opinions',
+      name: 'opinions',
+      component: OpinionsView,
     },
     {
       path: '/travels',

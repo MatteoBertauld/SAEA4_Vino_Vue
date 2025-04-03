@@ -33,7 +33,7 @@ import { Star } from 'lucide-vue-next';
 
     </section>
     <div class="buttons">
-        <a class="button" href="">Découvrir tous les avis</a>
+        <a class="button" href="/opinions/">Découvrir tous les avis</a>
     </div>
 
 </template>
