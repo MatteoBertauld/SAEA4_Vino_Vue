@@ -24,7 +24,7 @@ defineProps({
                     <hr>
                     <p>À partir de <span class="shiny">{{ travel.prixsejour }}€</span> par personne</p>
                     <p>{{ travel.descriptionsejour }}</p>
-                    <p>{{ travel.nbDay }} jours / {{ travel.nbNight }} nuits </p>
+                    <p>{{ travel.iddureeNavigation.libelleduree }} </p>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ export const useWineCatStore = defineStore('wineCategories', () => {
   
   const list = ref ([])
 
-  const urlBase = "https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/"
+  const urlBase = "https://localhost:7124/"
 
   axios.get(urlBase+"sejours/getsejours")
   .then(response => {

@@ -10,17 +10,35 @@ const timespanFilter = ref(0)
 const locationFilter =ref(0)
 
 var currentVinery;
+var locations;
 
 const filteredTravels = computed(() => {
-  if (vineryFilter.value == 0){
-    return travels.list
+  let l = travels.list;
+
+  if (!vineryFilter.value == 0){
+    l = l.filter(
+    s => s.idcategorievignoble == vineryFilter.value
+    )
   }
-  else {
-    return travels.list.filter(
-    s => s.idcategorievignoble == vineryFilter.value)
-  }
+  locations = []
+
+  l.forEach(travel => {
+    if (travel.idlocaliteNavigation != null && !locations.find(l => l.idlocalite == travel.idlocaliteNavigation.idlocalite)){
+      locations.push(travel.idlocaliteNavigation)
+    }
+  });
+  
+  if (!locationFilter.value == 0){
+    l = l.filter(
+    s => s.idlocalite == locationFilter.value
+  )}
+  if (!timespanFilter.value == 0){
+    l = l.filter(
+    s => s.idduree == timespanFilter.value
+  )}
+  return l;
 })
-console.log("hip");
+
 
 </script>
 
@@ -32,12 +50,12 @@ console.log("hip");
         <option :value="0">Quel vignoble ? </option>
         <option v-for="vinery in travels.vineries" :value="vinery.idcategorievignoble"> {{ vinery.libellecategorievignoble }} </option>
       </select>
-      <select v-if="true" v-model="currentVinery" name="" id="timeFilter">
+      <select v-if="true" v-model="locationFilter" name="" id="forWhoFilter">
         <option :value="0" >Localité ? </option>
-        <option v-for="location in travels.locations" :value="location.idlocalite"> {{ location.libellelocalite }}</option>
+        <option v-for="location in locations" :value="location.idlocalite"> {{ location.libellelocalite }}</option>
       </select>
-      <select name="" id="forWhoFilter">
-        <option value="default">Durée ? </option>
+      <select name="" id="timeFilter" v-model="timespanFilter">
+        <option :value="0">Durée ? </option>
         <option v-for="timespan in travels.timespans" :value="timespan.idduree"> {{ timespan.libelleduree }}</option>
       </select>
       <select name="" id="desireFilter">

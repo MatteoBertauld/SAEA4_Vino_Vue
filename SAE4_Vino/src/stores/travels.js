@@ -9,17 +9,11 @@ export const useTravelsStore = defineStore('travels', () => {
   const vineries = ref([])
   const locations = ref ([])
   const timespans = ref([])
-  const urlBase = "https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/"
+  const urlBase = "https://localhost:7124/api/"
 
-  // async function load(){
-  //   axios.get(urlBase+"sejours/getsejours")
-  //   .then(response => {
-  //       list.value = response.data
-  //       console.log("loaded")
-  // })}
   async function load(){
     return new Promise( function(resolve) {
-      axios.get(urlBase+"sejours/getsejours")
+      axios.get(urlBase+"Sejours/GetSejours")
       .then(response => {
           resolve(response.data)
       })
@@ -38,7 +32,8 @@ export const useTravelsStore = defineStore('travels', () => {
       }
     });
     timespans.value.sort();
-    vineries.value.sort();
+    vineries.value.sort((a,b) => (a.libellecategorievignoble > b.libellecategorievignoble) ? 1 : ((b.libellecategorievignoble > a.libellecategorievignoble) ? -1 : 0));
+
   })
 
   return { list, vineries, timespans, locations } 
