@@ -2,35 +2,35 @@
 import Travel from '@/components/Travel.vue';
 import { useTravelsStore } from '@/stores/travels';
 const travels = useTravelsStore();
-import "https://unpkg.com/lucide@latest"
+import "https://unpkg.com/lucide@latest";
 import { Star } from 'lucide-vue-next';
-
 </script>
 
 <template>
     <h1>Quelques avis de voyageurs</h1>
     <hr id="ligne">
-    <section v-for="travel in travels.list" :travel="travel">
-        <!-- {{travel.avis}} -->
-        <article class="avis">
-            <a class="titre-avis" :href="'/travel/'+travel.idsejour" >{{travel.titresejour }}</a>
-            <div class="note">
-                <p class="etoiles">
-                    <Star :class="{ checked: travel.avis.noteavis >= 1 }" />
-                    <Star :class="{ checked: travel.avis.noteavis >= 2 }" />
-                    <Star :class="{ checked: travel.avis.noteavis >= 3 }" />
-                    <Star :class="{ checked: travel.avis.noteavis >= 4 }" />
-                    <Star :class="{ checked: travel.avis.noteavis >= 5 }" />
-                </p>
-                <p class="valeur">{{ travel.avis.noteavis }}/5 ({{ travel.avis.length }} avis)</p>
+    <section v-for="travel in travels.list" :key="travel.id" :travel="travel">
+        <article v-if="travel.avis.length > 0" class="avis">
+            <a class="titre-avis" :href="'/travel/'+travel.idsejour">{{ travel.titresejour }}</a>
+            <div class="avis-list">
+                <div v-for="avis in travel.avis" :key="avis.id" class="avis-item">
+                    <div class="note">
+                        <p class="etoiles">
+                            <Star :class="{ checked: avis.noteavis >= 1 }" />
+                            <Star :class="{ checked: avis.noteavis >= 2 }" />
+                            <Star :class="{ checked: avis.noteavis >= 3 }" />
+                            <Star :class="{ checked: avis.noteavis >= 4 }" />
+                            <Star :class="{ checked: avis.noteavis >= 5 }" />
+                        </p>
+                    </div>
+                    <div class="exemple-avis">
+                        <p class="titre-exemple">{{ avis.titreavis }}</p>
+                        <p class="description-exemple">{{ avis.descriptionavis }}</p>
+                    </div>
+                </div>
             </div>
-            <div class="exemple-avis">
-                <p class="titre-exemple">{{ travel.avis.titreavis }}</p>
-                <p class="description-exemple">{{ travel.avis.descriptionavis }}</p>
-            </div>
-            <hr class="separateur"> <!-- Ajout du trait ici -->
+            <hr class="separateur">
         </article>
-
     </section>
 </template>
 
@@ -50,20 +50,22 @@ h1 {
 .avis {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 1rem;
     padding: 1rem;
     margin: 0 10vw;
 }
 
-.avis:not(:last-of-type) {
-    border-bottom: 2px solid #b6005e;
-    /* Ligne séparatrice */
-    padding-bottom: 1rem;
-    /* Ajoute un espace */
+.avis-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
+.avis-item {
+    border: 1px solid #b6005e;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
 
 .avis .titre-avis {
     font-size: 1.25rem;
@@ -94,32 +96,6 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-}
-
-.avis .exemple-avis .titre-exemple {
-    font-style: italic;
-}
-
-.buttons {
-    display: flex;
-    justify-content: center; /* Centre horizontalement */
-    white-space: nowrap; /* Empêche le retour à la ligne */
-    padding: 10px 20px; /* Ajuste la taille */
-    min-width: 150px; /* Taille minimale */
-    text-align: center; /* Centre le texte */
-}
-
-.button{
-    min-width: 200px; /* Taille minimale */
-}
-
-.unavis .ligne {
-    margin: 8px;
-    color: #b6005e;
-}
-
-article {
-    margin: 10px;
 }
 
 .separateur {
