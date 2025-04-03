@@ -8,10 +8,10 @@ import { RouterLink, RouterView } from 'vue-router'
   <header class="semibold">
     <div class="wrapper">
       <div class="leftMargin">
-        <div class="logo">
+        <RouterLink class="logo" to="/">
           <img src="./assets/images/vinotrip.png" alt="">
           <p class="underlogo colorVino">Créateurs de séjours oenotouristique</p>
-        </div>
+        </RouterLink>
       </div>
       
       <nav class="colorVino topmenu">
@@ -99,6 +99,17 @@ nav{
 }
 .semibold{
   font-weight: 600;
+}
+
+/*************************************************LOGO*******/
+
+
+.logo {
+  text-decoration: none; /* Supprime le soulignement */
+}
+
+.logo:hover {
+  text-decoration: none; /* Assure qu'il ne soit pas souligné même au survol */
 }
 
 /*************************************************UNDERLOGO*******/
