@@ -10,9 +10,15 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  vue: {
+    compilerOptions: {
+        isCustomElement: (tag) => tag === 'LucideChevronsDown',
+    },
+},
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
 })
+
