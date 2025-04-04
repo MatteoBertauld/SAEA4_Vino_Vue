@@ -356,14 +356,20 @@ hr {
             /* Hide overflowing content */
             transition: opacity 0.3s ease, max-height 0.3s ease;
             /* Smooth transitions */
+            width: 60vw;
         }
 
         .details.visible {
             opacity: 1;
             /* Fully visible */
-            max-height: 200px;
+            max-height: 100vh;
             /* Adjust as needed */
+            width: 60vw;
+            img{
+                width: 60vw;
+            }
         }
+        
 
     }
 
