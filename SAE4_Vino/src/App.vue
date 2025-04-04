@@ -48,15 +48,15 @@ import { RouterLink, RouterView } from 'vue-router'
 
 header{
   position: fixed;
-  padding: 15px;
+  padding: 2vh;
   width: 100%;
   background-color: #f0eeec;
   z-index: 5;
-  border-bottom: 4px solid #bd0162;
+  border-bottom: 0.3rem solid #bd0162;
 }
 
 .headerContainer{
-  height: 100px;
+  height: 6.25rem;
 }
 .mainpage{
   min-height: 100vh;

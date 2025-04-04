@@ -48,7 +48,7 @@ article{
     background-color: aliceblue;
     width: 30vw;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 5%;
     padding: 10px;
     margin: 50px 0 50px 0;
     border: white solid 2px;
@@ -81,6 +81,7 @@ article:hover{
     margin:25px;
     background-color: black;
     color: white;
+    border-radius: 10%;
 
     justify-content: stretch;
 }
@@ -92,9 +93,7 @@ article:hover{
     background-color: #bd0162;
     color: black;
 }
-p{
-    margin:10px;
-}
+
 .inlineblck{
     display: flex;
     flex-direction: row;
@@ -109,6 +108,5 @@ hr {
     width: 75px;
     border: none;
     background-color: #bd0162;
-    margin: .5rem 0;
 }
 </style>
