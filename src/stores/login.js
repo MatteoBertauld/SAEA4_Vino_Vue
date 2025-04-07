@@ -1,28 +1,32 @@
-import { ref,computed } from 'vue'
+import { ref,computed,watch, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { StatusCodes } from 'http-status-codes';
 
 export const LoginStore = defineStore('logins', () => {
   
+  
   const urlBase = "https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/";
   const token = ref(getToken());
   const user = ref({mail:null});
 
-  const isAuthenticated = computed(() => !!token.value);
+
+  const isAuthenticated = computed(() =>  !!token.value);
+  // token.value !== 'null' 
 
   function getToken() {
+    console.log(localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
 
-  function setToken(token) {
-    localStorage.setItem('token', token);
+  function setToken(newToken) {
+    token.value = newToken
+    localStorage.setItem('token', JSON.stringify(newToken));
   }
 
   function removeToken() {
     localStorage.removeItem('token');
   }
-    
 
 
   async function connexion(email,password) {
@@ -32,6 +36,8 @@ export const LoginStore = defineStore('logins', () => {
         motdepasseclient: password
       });
 
+
+      
       setToken(response.data.token);
       user.value = { mail: email };
       console.log("votre token de connexion\n"+token.value)

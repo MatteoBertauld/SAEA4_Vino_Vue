@@ -4,6 +4,9 @@ import DisplayError from './components/DisplayError.vue';
 //https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/
 
 import { storeDisplayError } from '@/stores/displayError';
+import { LoginStore } from '@/stores/login';
+
+const loginStore = LoginStore()
 
 const displayError = storeDisplayError()
 </script>
@@ -24,7 +27,9 @@ const displayError = storeDisplayError()
         <RouterLink class="leftMargin link colorVino" to="/travels">TOUS NOS SEJOURS</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/routedesvins">ROUTE DES VINS</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/aide">AIDE</RouterLink>
+        <RouterLink class="leftMargin link colorVino" to="/clients">clients</RouterLink>
         <RouterLink class="leftMargin link colorVino" to="/login">Login</RouterLink>
+        <p>Connected = {{ loginStore.isAuthenticated }}</p>
       </nav>
     </div>
   </header>

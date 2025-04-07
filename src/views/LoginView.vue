@@ -49,13 +49,13 @@
     
         <div id="container-forget-password" v-if="forgetPassword">
             <p>
-                Problmème de connexion ?<br>
+                Problème de connexion ?<br>
 
                 Vérifier votre mail et votre mot de passe <br>
 
                 ...<br>
 
-                En cas de problème, contactez notre support à support@vinotrip.fr.
+                Si le problème persiste merci de contactez le support à support@vinotrip.fr.
             </p>
         </div>
     </div>
