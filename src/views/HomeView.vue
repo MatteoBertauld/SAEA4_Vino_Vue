@@ -121,7 +121,8 @@ h1 {
 }
 
 .button {
-    min-width: 200px;
+    min-width: auto;
+    width: auto;
     /* Taille minimale */
 }
 
