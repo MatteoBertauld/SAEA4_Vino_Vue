@@ -14,8 +14,9 @@
     
     <article>
         <h2 class="centre">
-            <RouterLink :to="{ name: 'one-travel', params: {  id_travel: 2 } }">{{ travel.titresejour }}</RouterLink>
+            <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">{{ travel.titresejour }}</RouterLink>
         </h2>
+
         <div class="inlineblck">
             <img :src="'/src/assets/images/sejours/'+travel.photosejour" alt="" class="mainimage">
             <div class="petitContainer">
@@ -32,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <a :href="'/travels/'+travel.idsejour" class="button fillwidth">Decouvrir</a>
+        <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">Decouvrir</RouterLink>
     
     </article>
 

@@ -269,166 +269,34 @@ const props = defineProps({
                 $cpt++;
             @endphp
         @endforeach
-        @if ($cpt != 0)
-            <hr>
-            <h2 class="titreg">Les avis</h2>
-            <p class="small">Les avis ne sont pas vérifiés.</p>
-            <section id="avis">
-                @foreach ($sejour->avis as $avis)
-                    <article class="avis">
-                        <div class="stars">
-                            <i data-lucide="star" fill="currentColor" class="checked"></i>
-                            <i data-lucide="star" fill="currentColor" class="@if ($avis->noteavis >= 2) checked @endif"></i>
-                            <i data-lucide="star" fill="currentColor" class="@if ($avis->noteavis >= 3) checked @endif"></i>
-                            <i data-lucide="star" fill="currentColor" class="@if ($avis->noteavis >= 4) checked @endif"></i>
-                            <i data-lucide="star" fill="currentColor" class="@if ($avis->noteavis == 5) checked @endif"></i>
-                            {{ $avis->noteavis }}/5 &nbsp;&nbsp;
+        @if ($cpt != 0) -->
+        <div id="Avis">
+                <h2 class="titre_info">Les Avis</h2>
+                <div class="container_avis">
+                    <div v-for="Avis in travel.avis" class="avis-item">
+                        <div class="note">
+                            <p class="etoiles">
+                                <Star :class="{ checked: Avis.noteavis >= 1 }" />
+                                <Star :class="{ checked: Avis.noteavis >= 2 }" />
+                                <Star :class="{ checked: Avis.noteavis >= 3 }" />
+                                <Star :class="{ checked: Avis.noteavis >= 4 }" />
+                                <Star :class="{ checked: Avis.noteavis >= 5 }" />
+                            </p>
                         </div>
-                        <p class="titre">
-                            @php
-                                $text = $avis->client->prenomclient;
-                                $sub = substr($text, 0, 1);
-                            @endphp
-                            {{ $avis->client->nomclient }} {{ $sub }}. &nbsp;|&nbsp; {{ $avis->titreavis }}
-                        </p>
-                        <div class="description">
-                            @if ($avis->photoavis)
-                                <img src="/storage/avis/{{ $avis->photoavis }}" alt="Photo" class="photo">
-                            @endif
-                            <p>{{ $avis->descriptionavis }}</p>
+                        <div class="exemple-avis">
+                            <p class="titre-exemple">{{ Avis.titreavis }}</p>
+                            <p class="description-exemple">{{ Avis.descriptionavis }}</p>
                         </div>
-                        <div class="buttons">
-                            @if (Helpers::AuthIsRole(Role::ServiceVente) || Helpers::AuthIsRole(Role::Dirigeant))
-                                <form method="post" action="{{ route('api.sejour-avis.reply', ['idsejour' => $sejour->idsejour, 'idavis' => $avis->idavis]) }}">
-                                    @csrf
-                                    <div class="input-control input-control-text">
-                                        <input type="text" name="reply" required placeholder="Répondre" />
-                                    </div>
-                                    <button class="button button-sm" type="submit">
-                                        <i data-lucide="reply"></i>
-                                    </button>
-                                </form>
-                            @endif
-                            <button class="button button-sm signaler">Signaler l'avis</button>
-                        </div>
-                        @foreach ($avis->reponse as $reponse)
-                            <div class="reponse">
-                                <span class="titre">Réponse de VinoTrip<i data-lucide="badge-check"></i></span>
-                                <span class="description">{{ $reponse->descriptionreponse }}</span>
-                            </div>
-                        @endforeach
-                    </article>
-                @endforeach
-            </section>
-        @endif
-
-
-        @if (Helpers::AuthIsRole(Role::ServiceVente) || Helpers::AuthIsRole(Role::Dirigeant))
-            <form class="overlay hidden" id="reduc" method="post" action="{{ route('api.sejour-discount', ['idsejour' => $sejour->idsejour]) }}">
-                @csrf
-                <div class="overlay-content">
-                    <h2>Indiquer le nouveau prix voulu :</h2><br />
-                    <input type="hidden" name="idsejour" id="reduc-idsejour">
-
-                    <div class="input-control input-control-text required">
-                        <label for="reduc-nouvprix">Nouveau prix (€)</label>
-                        <input type="number" basevalue="{{ $sejour->nouveauprixsejour ?? $sejour->prixsejour }}" step="0.01"
-                            value="{{ $sejour->nouveauprixsejour ?? $sejour->prixsejour }}" min="0"
-                            max="{{ $sejour->prixsejour }}" name="nouveauprixsejour" id="reduc-nouvprix">
-                    </div>
-                    <div class="input-control input-control-text required">
-                        <label for="reduc-pourcentage">Réduction (%)</label>
-                        <input type="number"
-                            basevalue="{{ $sejour->prixsejour == 0 ? 0 : round((1 - ($sejour->nouveauprixsejour ?? $sejour->prixsejour) / $sejour->prixsejour) * 100, 2) }}"
-                            step="0.01"
-                            value="{{ $sejour->prixsejour == 0 ? 0 : round((1 - ($sejour->nouveauprixsejour ?? $sejour->prixsejour) / $sejour->prixsejour) * 100, 2) }}"
-                            min="0" max="100" name="pourcentagereduction" id="reduc-pourcentage">
-                    </div>
-
-                    <div id="reduction-buttons" class="buttons">
-                        <button type="button" class="button" id="reduc-annuler">Annuler</button>
-                        <button type="submit" class="button">Appliquer</button>
                     </div>
                 </div>
-            </form>
-        @endif
-
-        @if (Auth::check())
-            <form class="overlay hidden" id="publier-avis" method="post" action="{{ route('api.sejour-avis', ['idsejour' => $sejour->idsejour]) }}"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="overlay-content">
-                    <h2>Créer un avis</h2>
-                    <div class="input-control input-control-image required">
-                        <label for="pavis-photo">Photo</label>
-                        <div class="image">
-                            <img src="" id="pavis-photo-img">
-                            <div class="hover"></div>
-                        </div>
-                        <div class="input-container">
-                            <input type="file" accept="image/*" name="photo" id="pavis-photo">
-                            <button class="button" disabled type="button" id="photo-upload-remove"><i
-                                    data-lucide="image-off"></i></button>
-                        </div>
-                    </div>
-                    <div class="input-control input-control-text required">
-                        <label for="pavis-note">Note de l'avis (/5)</label>
-                        <input type="number" min="1" step="1" max="5" name="note" id="pavis-note">
-                    </div>
-                    <div class="input-control input-control-text required">
-                        <label for="pavis-titre">Titre de l'avis</label>
-                        <input type="text" name="titre" id="pavis-titre" minlength="5" maxlength="50">
-                    </div>
-                    <div class="input-control input-control-text required">
-                        <label for="pavis-description">Description</label>
-                        <input type="text" name="description" id="pavis-description" minlength="10" maxlength="2048">
-                    </div>
-
-                    <div id="reduction-buttons">
-                        <button type="button" class="button" id="pavis-annuler">Annuler</button>
-                        <button type="submit" class="button">Confirmer</button>
-                    </div>
-                </div>
-            </form>
-        @endif
-
-        @if (isset($sejouraime) && sizeof($sejouraime) > 0)
-            <hr>
-            <h2 class="titreg">Également dans cette région</h2>
-            <section id="aime">
-                @foreach ($sejouraime as $aime)
-                    <article class="aime"> <img src="/storage/sejour/{{ $aime->photosejour }}" alt="" class="photo">
-                        <p class="titre">{{ $aime->titresejour }}</p>
-                        <p class="prix">À partir de <span class="euros">{{ $aime->prixsejour }}€</span> par personne
-                        </p>
-                        <a class="button button-sm" href="{{ route('sejour', ['idsejour' => $aime->idsejour]) }}">Détails</a>
-                    </article>
-                @endforeach
-            </section>
-        @endif
-
-        @if (isset($history) && sizeof($history) > 0)
-            <hr>
-            <h2 class="titreg">Séjours récemment visités</h2>
-            <section id="history">
-                @foreach ($history as $hsejour)
-                    <article class="history" data-open="/sejour/{{ $hsejour->idsejour }}">
-                        <img src="/storage/sejour/{{ $hsejour->photosejour }}" alt="" class="photo">
-                        <p class="titre">{{ $hsejour->titresejour }}</p>
-                        <p class="prix">À partir de <span class="euros">{{ $hsejour->prixsejour }}€</span> par
-                            personne</p>
-                        <a class="button button-sm" href="{{ route('sejour', ['idsejour' => $hsejour->idsejour]) }}">Détails</a>
-                    </article>
-                @endforeach
-            </section>
-        @endif -->
+            </div>
     </main>
-
-
 
 </template>
 
 <style>
+
+
 
 
 </style>
