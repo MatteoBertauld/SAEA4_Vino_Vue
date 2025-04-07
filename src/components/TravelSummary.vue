@@ -241,15 +241,7 @@ const props = defineProps({
             </article>
         </section>
 
-        <!-- @if (!$sejour->publie && (Helpers::AuthIsRole(Role::ServiceVente) || Helpers::AuthIsRole(Role::Dirigeant)))
-            @if (\Session::has('success'))
-                <p class="alert alert-success"><i data-lucide="circle-check-big"></i>{!! \Session::get('success') !!}</p>
-            @endif
-            <form action="{{ route('api.sejour-hotel', ['idsejour' => $sejour->idsejour]) }}" method="POST">
-                @csrf
-                <button type="submit" class="button">Contactez les hotels</button>
-            </form>
-        @endif -->
+
 
         <hr>
         <h2 class="titreg">Les châteaux et les domaines</h2>
@@ -290,7 +282,11 @@ const props = defineProps({
                     </div>
                 </div>
             </div>
+
+
     </main>
+
+
 
 </template>
 
