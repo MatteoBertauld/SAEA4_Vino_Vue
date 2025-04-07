@@ -170,7 +170,6 @@
         padding: 5px;
         border-radius: 5px;
         font-size: x-large;
-        width: 100%;
         cursor:pointer;
     }
   
