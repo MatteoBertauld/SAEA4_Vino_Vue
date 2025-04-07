@@ -59,5 +59,5 @@ export const useTravelsStore = defineStore('travels', () => {
     return null;
   }
 
-  return { list, vineries, timespans, locations, targets, themes,getTravelById } 
+  return { list, vineries, timespans, locations, targets, themes, getTravelById } 
 })
