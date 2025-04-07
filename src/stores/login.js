@@ -23,8 +23,6 @@ export const LoginStore = defineStore('logins', () => {
     localStorage.removeItem('token');
   }
     
-
-
   async function connexion(email,password) {
     try {
       const response = await axios.post(urlBase + 'login', {
