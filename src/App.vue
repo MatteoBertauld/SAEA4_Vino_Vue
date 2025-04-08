@@ -22,6 +22,7 @@ const displayError = storeDisplayError()
       <nav class="colorVino topmenu">
         <RouterLink class="leftMargin link colorVino" to="/">HOME</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/travels">TOUS NOS SEJOURS</RouterLink>|
+        <RouterLink class="leftMargin link colorVino" to="/partenaires">TOUS NOS PARTENAIRES</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/routedesvins">ROUTE DES VINS</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/aide">AIDE</RouterLink>
         <RouterLink class="leftMargin link colorVino" to="/login">Login</RouterLink>

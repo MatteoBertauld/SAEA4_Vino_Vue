@@ -1,3 +1,4 @@
+
 <script setup>
 import { LucideChevronsDown, LucideChevronsUp } from 'lucide-vue-next';
 import { initializeAccordion } from '../assets/js/aide.js';

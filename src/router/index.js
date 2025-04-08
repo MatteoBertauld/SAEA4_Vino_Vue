@@ -10,6 +10,7 @@ import OpinionsView from '@/views/OpinionsView.vue'
 import LoginView from '@/views/LoginView.vue'
 import OneTravelView from '@/views/OneTravelView.vue'
 import TavelSummaryView from '@/views/TavelSummaryView.vue'
+import PartenaireView from '@/views/PartenaireView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
       path: '/travels',
       name: 'travels',
       component: TravelsView,
+    },
+    {
+      path: '/partenaires',
+      name: 'partenaires',
+      component: PartenaireView,
     },
     {
       path: '/routedesvins',
