@@ -1,31 +1,62 @@
 <script setup>
 
     import { RouterLink } from 'vue-router'
+    import { 
+        Landmark, CookingPot , Volleyball, Flower,
+        LandPlot, Leaf, PartyPopper,
+        Heart, UsersRound, Baby,
+        Star
+     } from 'lucide-vue-next';
 
     defineProps({
         travel: {
             required: true
         }
     });
-
 </script>
 
 <template>
-    
     <article>
         <h2 class="centre">
             <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">{{ travel.titresejour }}</RouterLink>
         </h2>
+        <div class="inlineblock">
+            <div class="block">
+                <img :src="'/src/assets/images/sejours/'+travel.photosejour" alt="" class="mainimage">
+                <div id="icons" class="inlineblock">
 
-        <div class="inlineblck">
-            <img :src="'/src/assets/images/sejours/'+travel.photosejour" alt="" class="mainimage">
-            <div class="petitContainer">
-                <div class="icons">
-                    <img src="" alt="">
-                    <img src="" alt="">
+                    <div :title="travel.idcategorieparticipantNavigation.libellecategorieparticipant">
+                        <Heart v-if="travel.idcategorieparticipant === 1"></Heart>
+                        <UsersRound v-if="travel.idcategorieparticipant === 2"></UsersRound>
+                        <Baby v-if="travel.idcategorieparticipant === 3"></Baby>
+                    </div>
+
+                    <div :title="travel.idthemeNavigation.libelletheme">
+                        <CookingPot v-if="travel.idtheme === 1"></CookingPot>
+                        <Flower v-if="travel.idtheme === 2"></Flower>
+                        <LandPlot v-if="travel.idtheme === 3"></LandPlot>
+                        <Landmark v-if="travel.idtheme === 4"></Landmark>
+                        <Leaf v-if="travel.idtheme === 5"></Leaf>
+                        <PartyPopper v-if="travel.idtheme === 6"></PartyPopper>
+                    </div>
+
                 </div>
+                <div class="note" v-if="travel.avis.length != 0">
+                    <p class="etoiles">
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0 ) >= 1) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 2) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 3) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 4) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 5) }" />
+                    </p>
+                    <p class="valeur">{{ travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0 }}/5 ({{ travel.avis.length }} avis)</p>
+
+                </div>
+            </div>
+            <div class="petitContainer">
+
                 <div class="column">
-                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
+                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }} <span v-if="travel.idlocaliteNavigation?.libellelocalite">({{travel.idlocaliteNavigation?.libellelocalite}})</span></p>
                     <hr>
                     <p>À partir de <span class="shiny">{{ travel.prixsejour }}€</span> par personne</p>
                     <p>{{ travel.descriptionsejour }}</p>
@@ -33,6 +64,7 @@
                 </div>
             </div>
         </div>
+
         <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">Decouvrir</RouterLink>
     
     </article>
@@ -57,6 +89,7 @@ article{
     padding: 10px;
     margin: 50px 0 50px 0;
     border: white solid 2px;
+    position: relative;
 }
 article:hover{
     border: solid black 2px;
@@ -67,7 +100,6 @@ article:hover{
     padding: 0 15px;
 }
 .mainimage{
-    width: 50%;
     height: 150px;
 }
 .shiny{
@@ -81,14 +113,16 @@ article:hover{
     flex-direction: column;
 }
 .button{
-    width: 100%;
+    width: 20%;
     padding:25px;
-    margin:25px;
+    right: 5%;
+    bottom: -15%;
     background-color: black;
     color: white;
     border-radius: 10%;
-
+    position: absolute;
     justify-content: stretch;
+    text-align: center;
 }
 
 .fillwidth{
@@ -99,9 +133,20 @@ article:hover{
     color: black;
 }
 
-.inlineblck{
+.inlineblock{
     display: flex;
     flex-direction: row;
+}
+
+.block{
+    margin: 0;
+}
+
+
+
+.block{
+    display: flex;
+    flex-direction: column;
 }
 a{
     text-decoration: none;
@@ -109,9 +154,34 @@ a{
 }
 
 hr {
+    margin: 0 0 1rem 0;
     height: 4px;
     width: 75px;
     border: none;
     background-color: #bd0162;
+}
+
+#icons{
+    width: 100%;
+    margin: 0.5rem 0;
+    align-items: center;
+}
+
+#icons *{
+    margin: 0 0.1rem;
+    width: 32px;
+    height: 32px;
+}
+
+.valeur{
+    padding-bottom:1rem;
+}
+
+.note .etoiles .checked {
+    fill: #b6005e;
+}
+
+.etoiles{
+    margin: 0;
 }
 </style>
