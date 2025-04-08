@@ -1,5 +1,5 @@
 <script setup>
-import { h } from 'vue';
+
 
 
 const props = defineProps({
@@ -13,8 +13,7 @@ const props = defineProps({
 
 <template >
     
-
-    <main class="container"> 
+    <main class="container" v-if="travel"> 
         <hr>
         <h2 class="titreg">Le programme détaillé de votre séjour</h2>
 
@@ -84,7 +83,6 @@ const props = defineProps({
 
 
     </main>
-
 
 
 
