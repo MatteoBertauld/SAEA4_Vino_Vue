@@ -20,11 +20,11 @@ const displayError = storeDisplayError()
       </div>
       
       <nav class="colorVino topmenu">
-        <RouterLink class="leftMargin link colorVino" to="/">HOME</RouterLink>|
+        <RouterLink class="leftMargin link colorVino" to="/">ACCUEIL</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/travels">TOUS NOS SEJOURS</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/routedesvins">ROUTE DES VINS</RouterLink>|
-        <RouterLink class="leftMargin link colorVino" to="/aide">AIDE</RouterLink>
-        <RouterLink class="leftMargin link colorVino" to="/login">Login</RouterLink>
+        <RouterLink class="leftMargin link colorVino" to="/aide">AIDE</RouterLink>|
+        <RouterLink class="leftMargin link colorVino" to="/login">SE CONNECTER</RouterLink>
       </nav>
     </div>
   </header>

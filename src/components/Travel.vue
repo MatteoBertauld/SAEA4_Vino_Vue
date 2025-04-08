@@ -173,9 +173,6 @@ hr {
     height: 32px;
 }
 
-.valeur{
-    padding-bottom:1rem;
-}
 
 .note .etoiles .checked {
     fill: #b6005e;

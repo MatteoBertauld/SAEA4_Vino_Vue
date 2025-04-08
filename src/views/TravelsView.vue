@@ -64,7 +64,7 @@ const filteredTravels = computed((previous) => {
         <option :value="0">Quel vignoble ? </option>
         <option v-for="vinery in travels.vineries" :value="vinery.idcategorievignoble"> {{ vinery.libellecategorievignoble }} </option>
       </select>
-      <select v-model="locationFilter" name="" id="locationFilter">
+      <select v-model="locationFilter" name="" id="locationFilter" style="display: none;">
         <option :value="0" id="baseLocation">Localité ? </option>
         <option v-for="location in locations" :value="location.idlocalite"> {{ location.libellelocalite }}</option>
       </select>
