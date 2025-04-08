@@ -80,6 +80,6 @@ export const useTravelsStore = defineStore('travels', () => {
   }
 
 
-  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById } 
+  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById,load } 
 
 })
