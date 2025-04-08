@@ -24,9 +24,18 @@ const changerAffichage = (categorie) => {
         <div class="partenaires">
             <article v-for="partenaire in affichage" :key="partenaire.id">
                 <div>
+                    {{ partenaire }}
                     <h2>{{ partenaire.nompartenaire }}</h2>
                     <p>Téléphone : {{ partenaire.telpartenaire }}</p>
                     <p>Mail : {{ partenaire.mailpartenaire }}</p>
+                    <section v-if="partenaire.nombreetoilesrestaurant == null">
+                        <p>Note : {{ partenaire.nombreetoilesrestaurant }}</p>
+                        <p>Spécialite culinaire : {{ partenaire.specialiterestaurant }}</p>
+                    </section>
+                    <section v-if="partenaire.categoriehotel == null">
+                        <p>Note : {{ partenaire.categoriehotel }}</p>
+                        <p>Nombre de chambres : {{ partenaire.nombrechambreshotel }}</p>
+                    </section>
                 </div>
             </article>
         </div>
