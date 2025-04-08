@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { usePartenairesStore } from '@/stores/partenaires';
 import "https://unpkg.com/lucide@latest"
 import { Star } from 'lucide-vue-next';
+import AddPartenaire from '@/components/AddPartenaire.vue';
 
 const partenaires = usePartenairesStore();
 const affichage = ref(partenaires.tous); // État initial 
@@ -11,6 +12,7 @@ const affichage = ref(partenaires.tous); // État initial
 const changerAffichage = (categorie) => {
     affichage.value = partenaires[categorie];
 };
+const showComponent = ref(false)
 </script>
 
 <template>
@@ -22,11 +24,13 @@ const changerAffichage = (categorie) => {
             <button class="button" @click="changerAffichage('cave')">Cave</button>
             <button class="button" @click="changerAffichage('hotel')">Hotel</button>
             <button class="button" @click="changerAffichage('restaurant')">Restaurant</button>
+            <button class="button" @click="showComponent = !showComponent">Ajouter un partenaire</button>
         </div>
         <div class="partenaires">
             <article v-for="partenaire in affichage" :key="partenaire.id">
                 <div>
                     <h2>{{ partenaire.nompartenaire }}</h2>
+                    {{ partenaire }}
                     <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
                         <div class="note">
                             <p class="etoiles">
@@ -38,7 +42,6 @@ const changerAffichage = (categorie) => {
                             </p>
                             <p class="valeur">{{ partenaire.restaurant?.nombreetoilesrestaurant }}/5</p>
                         </div>
-                        <p>Spécialite culinaire : {{ partenaire.restaurant?.specialiterestaurant }}</p>
                     </section>
                     <section v-if="partenaire.hotel?.categoriehotel != null">
                         <div class="note">
@@ -51,13 +54,29 @@ const changerAffichage = (categorie) => {
                             </p>
                             <p class="valeur">{{ partenaire.hotel?.categoriehotel }}/5</p>
                         </div>
-                        <p>Nombre de chambres : {{ partenaire.hotel?.nombrechambreshotel }}</p>
                     </section>
                     <p>Téléphone : {{ partenaire.telpartenaire }}</p>
                     <p>Mail : {{ partenaire.mailpartenaire }}</p>
+                    <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
+                        <p>Spécialite culinaire : {{ partenaire.restaurant?.specialiterestaurant }}</p>
+                        <p>Type de cuisine : {{ partenaire.restaurant?.idtypecuisineNavigation.libelletypecuisine }}</p>
+                    </section>
+                    <section v-if="partenaire.hotel?.categoriehotel != null">
+                        <p>Nombre de chambres : {{ partenaire.hotel?.nombrechambreshotel }}</p>
+                    </section>
+                    <section v-if="partenaire.cave?.idtypedegustationNavigation != null">
+                        <p>Type de dégustation : {{ partenaire.cave?.idtypedegustationNavigation.libelletypedegustation }}</p>
+                    </section>
                 </div>
             </article>
         </div>
+    </div>
+
+
+
+    <div id="container-addRoad-View" v-if="showComponent">
+        <AddPartenaire id="addRoadView" />
+        <button id="CloseAddRoadView" @click="showComponent = false">X</button>
     </div>
 </template>
 

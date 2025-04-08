@@ -44,5 +44,29 @@ export const usePartenairesStore = defineStore('partenaires', () => {
             tous.value.push(partenaire)
         });
     });
-    return { list, hotel, restaurant, cave, autresociete, tous }
+
+    async function getPartenaireById(id) {
+        console.log("id renvoyé",id)
+    try {
+      console.log("succès id")
+      return await axios.get(`${urlBase}partenaire/getpartenairebyid/${id}`)
+    } catch (error) {
+        console.error("Erreur lors de la récupération du partenaire : ",id, error)
+        return false;
+    }}
+
+    async function addPartenaire(partenaire) {
+        var chaine = "partenaire/postpartenaire"+ travel.value;
+        var axiosInstance = loginStore.axiosWithToken()
+    
+        try {
+          await axiosInstance.post(chaine,travel)
+    
+        }catch(error){console.log(error)}
+    
+      // Retourne la fonction pour récupérer un séjour par ID et la liste des séjours
+      }
+
+
+    return { list, hotel, restaurant, cave, autresociete, tous, addPartenaire, getPartenaireById }
 })
