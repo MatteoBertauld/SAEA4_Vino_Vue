@@ -7,7 +7,7 @@ import { Star } from 'lucide-vue-next';
 </script>
 
 <template>
-    <h1>Quelques avis de voyageurs</h1>
+    <h1>Tous les avis de nos voyageurs</h1>
     <hr id="ligne">
     <section v-for="travel in travels.list" :key="travel.id" :travel="travel">
         <article v-if="travel.avis.length > 0" class="avis">

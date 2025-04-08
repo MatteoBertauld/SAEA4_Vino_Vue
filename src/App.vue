@@ -20,11 +20,12 @@ const displayError = storeDisplayError()
       </div>
       
       <nav class="colorVino topmenu">
-        <RouterLink class="leftMargin link colorVino" to="/">HOME</RouterLink>|
+        <RouterLink class="leftMargin link colorVino" to="/">ACCUEIL</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/travels">TOUS NOS SEJOURS</RouterLink>|
+        <RouterLink class="leftMargin link colorVino" to="/partenaires">TOUS NOS PARTENAIRES</RouterLink>|
         <RouterLink class="leftMargin link colorVino" to="/routedesvins">ROUTE DES VINS</RouterLink>|
-        <RouterLink class="leftMargin link colorVino" to="/aide">AIDE</RouterLink>
-        <RouterLink class="leftMargin link colorVino" to="/login">Login</RouterLink>
+        <RouterLink class="leftMargin link colorVino" to="/aide">AIDE</RouterLink>|
+        <RouterLink class="leftMargin link colorVino" to="/login">SE CONNECTER</RouterLink>
       </nav>
     </div>
   </header>
@@ -56,7 +57,7 @@ const displayError = storeDisplayError()
 
 header{
   position: fixed;
-  padding: 2vh;
+  padding: 2vh 0;
   width: 100%;
   background-color: #f0eeec;
   z-index: 5;
@@ -134,7 +135,7 @@ nav{
 footer{
   background-color:rgb(40,28,28);  
   color: white;
-  height: 10vh;
+  height: 13vh;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -148,8 +149,33 @@ footer nav{
   flex-direction:row;
   margin: 4vh;
 }
+@media only screen and (max-width: 1024px) {
+  footer nav{
+  justify-content: center;
+  display: flex;
+  flex-direction:column;
+  width: 100%;
+  margin: 0;
+}
+.wrapper{
+  flex-direction: column;
+  align-items: center;
+}
+.topmenu{
+  display: inline-block;
+  flex-direction: column;
+  text-align: center;
+}
+
+.logo{
+  align-items: center;
+}
+
+}
 
 .footerlink{
   color: white;
 }
+
+
 </style>

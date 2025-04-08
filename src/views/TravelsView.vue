@@ -1,6 +1,6 @@
 <script setup defer>
 import Travel from '@/components/Travel.vue';
-
+import AddTravel from '@/components/AddTravel.vue';
 import { useTravelsStore } from '@/stores/travels';
 import { ref, computed } from 'vue';
 const travels = useTravelsStore();
@@ -12,6 +12,7 @@ const targetFilter = ref(0)
 const themeFilter = ref(0)
 
 var locations = ref([]);
+const showComponent = ref(false)
 
 const filteredTravels = computed((previous) => {
   let l = travels.list;
@@ -60,11 +61,13 @@ const filteredTravels = computed((previous) => {
   <div class="sectionContainer">
 
     <div class="filtrecontainer">
+      
+      <button id="addTravel" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
       <select name="" id="vineryFilter" v-model="vineryFilter">
         <option :value="0">Quel vignoble ? </option>
         <option v-for="vinery in travels.vineries" :value="vinery.idcategorievignoble"> {{ vinery.libellecategorievignoble }} </option>
       </select>
-      <select v-model="locationFilter" name="" id="locationFilter">
+      <select v-model="locationFilter" name="" id="locationFilter" style="display: none;">
         <option :value="0" id="baseLocation">Localité ? </option>
         <option v-for="location in locations" :value="location.idlocalite"> {{ location.libellelocalite }}</option>
       </select>
@@ -81,11 +84,22 @@ const filteredTravels = computed((previous) => {
         <option v-for="theme in travels.themes" :value="theme.idtheme"> {{ theme.libelletheme }}</option>
       </select>
     </div>
+
     <section class="bigContainer">
-      <Travel v-for="travel in filteredTravels['list']" :travel="travel"></Travel>
+      <Travel v-for="travel in filteredTravels['list']" :travel="travel" class="travel"></Travel>
+
       <div id="noVinery" style="display: none;">Aucun séjour n'a été trouvé pour ces paramètres.</div>
     </section>
+
   </div>
+
+
+  <div id="container-addRoad-View" v-if="showComponent">
+    <AddTravel id="addRoadView" />
+    <button id="CloseAddRoadView" @click="showComponent = false">X</button>
+  </div>
+
+
 
 </template>
 
@@ -103,7 +117,18 @@ const filteredTravels = computed((previous) => {
   margin: 3vh 0 3vh 0;
   justify-content: space-around;
 }
+@media only screen and (max-width: 1024px) {
+  .bigContainer {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .travel{
+    width: 100%;
+  }
 
+}
 .filtrecontainer {
   width: 80vw;
   display: flex;
@@ -124,4 +149,40 @@ const filteredTravels = computed((previous) => {
   cursor: pointer;
   text-decoration: none;
 }
+
+
+#container-addRoad-View {
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    height: 80vh;
+    background-color: rgba(255, 255, 255, 0.95); /* Optionnel : pour un fond semi-transparent */
+    z-index: 9999; /* Un très grand nombre pour qu'il soit au-dessus de tout */
+    border: solid #333 3px;
+    border-radius: 3%;
+}
+
+#addRoadView {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#CloseAddRoadView {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    width: 10px;
+    height: 20px;
+    font-size: small;
+    display: flex;          /* Utilisation de Flexbox */
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center;    /* Centre le contenu verticalement */
+    text-align: center;     /* Assure que le texte est centré */
+}
+
+    
+
 </style>
