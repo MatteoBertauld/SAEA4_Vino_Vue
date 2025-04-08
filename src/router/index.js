@@ -9,8 +9,12 @@ import ConditionsDeVentesView from '@/views/legal/ConditionsDeVentesView.vue'
 import OpinionsView from '@/views/OpinionsView.vue'
 import LoginView from '@/views/LoginView.vue'
 import OneTravelView from '@/views/OneTravelView.vue'
+<<<<<<< HEAD
 import TavelSummaryView from '@/views/TavelSummaryView.vue'
 import PartenaireView from '@/views/PartenaireView.vue'
+=======
+import TravelSummaryView from '@/views/TravelSummaryView.vue'
+>>>>>>> 715117c04bff3e721d16e66ea798691e8b0bf533
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,7 +69,7 @@ const router = createRouter({
     {
       path: '/travels/:id',
       name: '/travels/:id',
-      component: TavelSummaryView,
+      component: TravelSummaryView,
     },
     {
       path: '/about',
