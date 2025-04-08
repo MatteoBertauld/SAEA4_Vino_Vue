@@ -65,7 +65,7 @@
             </div>
         </div>
 
-        <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">Decouvrir</RouterLink>
+        <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="button hovershiny">Decouvrir</RouterLink>
     
     </article>
 
