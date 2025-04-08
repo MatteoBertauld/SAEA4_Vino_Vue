@@ -12,11 +12,13 @@ export const LoginStore = defineStore('logins', () => {
   const isAuthenticated = computed(() => !!token.value);
 
   function getToken() {
+    console.log("votre token:\n",localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
 
-  function setToken(token) {
-    localStorage.setItem('token', token);
+  function setToken(newToken) {
+    token.value = newToken
+    localStorage.setItem('token', newToken);
   }
 
   function removeToken() {
@@ -61,7 +63,7 @@ export const LoginStore = defineStore('logins', () => {
   const axiosWithToken = (endpoint = '') => {
 
     if(!isAuthenticated) {
-      return Promise.reject(error);
+      return Promise.reject("Pas d'autentification");
     };
 
     const apiClient = axios.create({

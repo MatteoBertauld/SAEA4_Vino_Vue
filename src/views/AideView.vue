@@ -12,7 +12,7 @@ onMounted(() => {
     <div class="legalContainer">
         <div class="legalContent">
             <h1>Foire aux Questions</h1>
-            <hr />
+            <hr class="help-hr" />
 
             <div class="accordeon">
 
@@ -298,7 +298,7 @@ svg {
 }
 
 
-hr {
+.help-hr {
     height: 4px;
     width: 75px;
     border: none;

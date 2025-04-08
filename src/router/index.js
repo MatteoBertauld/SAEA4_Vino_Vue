@@ -11,6 +11,7 @@ import LoginView from '@/views/LoginView.vue'
 import OneTravelView from '@/views/OneTravelView.vue'
 import PartenaireView from '@/views/PartenaireView.vue'
 import TravelSummaryView from '@/views/TravelSummaryView.vue'
+import ClientsView from '@/views/ClientsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -66,6 +67,11 @@ const router = createRouter({
       path: '/travels/:id',
       name: '/travels/:id',
       component: TravelSummaryView,
+    },
+    {
+      path: '/clients',
+      name: 'clients',
+      component: ClientsView,
     },
     {
       path: '/about',
