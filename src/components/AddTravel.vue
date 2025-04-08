@@ -10,10 +10,6 @@ const props = defineProps({
         type: Object,  // Spécifie le type attendu pour la prop
         required: false,
         default: () => ({ 
-            titreroute: "Title",
-            descriptionroute: "desc",
-            photoroute: "NOIMAGE.jpg",
-            idcategorievignobles: [],
             idsejour: 0,
             idduree: 0,
             idcategorievignoble: 0,
@@ -24,7 +20,7 @@ const props = defineProps({
             titresejour: "string",
             photosejour: "string",
             descriptionsejour: "string",
-            prixsejour: 0
+            prixsejour: 0,
         })
     },
     toEdit: {
@@ -39,7 +35,7 @@ const displayError = storeDisplayError()
 
 async function add() {
     console.log(travelsStore.list)
-    const result = await travelsStore.AddTravel(props.newTravel)
+    const result = await travelsStore.addTravel(props.newTravel)
     // displayError.display(result.error, result.title, result.description);
     // if (!result.error) {
     //     router.push({ name: "travels" });

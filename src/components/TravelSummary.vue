@@ -12,7 +12,7 @@ const props = defineProps({
 <template>
 
 <div v-if="travel && travel.data">
-
+    {{ travel }}
     <main class="container"> 
         <hr>
         <h2 class="titreg">Le programme détaillé de votre séjour</h2>
