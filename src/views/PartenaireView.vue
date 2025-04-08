@@ -138,10 +138,4 @@ article {
     color: black;
 }
 
-hr {
-    height: 4px;
-    width: 75px;
-    border: none;
-    background-color: #bd0162;
-}
 </style>

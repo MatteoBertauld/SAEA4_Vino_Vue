@@ -12,19 +12,19 @@ export const LoginStore = defineStore('logins', () => {
   const isAuthenticated = computed(() => !!token.value);
 
   function getToken() {
+    console.log("votre token:\n",localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
 
-  function setToken(token) {
-    localStorage.setItem('token', token);
+  function setToken(newToken) {
+    token.value = newToken
+    localStorage.setItem('token', newToken);
   }
 
   function removeToken() {
     localStorage.removeItem('token');
   }
     
-
-
   async function connexion(email,password) {
     try {
       const response = await axios.post(urlBase + 'login', {
@@ -44,6 +44,7 @@ export const LoginStore = defineStore('logins', () => {
 
     } catch (error) {
       console.log(error)
+      user.value = {mail: null}
       return {
           error: true,
           title: "Connexion Impossible",
@@ -61,7 +62,7 @@ export const LoginStore = defineStore('logins', () => {
   const axiosWithToken = (endpoint = '') => {
 
     if(!isAuthenticated) {
-      return Promise.reject(error);
+      return Promise.reject("Pas d'autentification");
     };
 
     const apiClient = axios.create({

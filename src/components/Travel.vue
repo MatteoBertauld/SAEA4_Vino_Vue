@@ -57,7 +57,7 @@
 
                 <div class="column">
                     <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }} <span v-if="travel.idlocaliteNavigation?.libellelocalite">({{travel.idlocaliteNavigation?.libellelocalite}})</span></p>
-                    <hr>
+                    <hr id="travel-hr">
                     <p>À partir de <span class="shiny">{{ travel.prixsejour }}€</span> par personne</p>
                     <p>{{ travel.descriptionsejour }}</p>
                     <p>{{ travel.iddureeNavigation.libelleduree }} </p>
@@ -189,7 +189,7 @@ a{
     color: black;
 }
 
-hr {
+#travel-hr {
     margin: 0 0 1rem 0;
     height: 4px;
     width: 75px;

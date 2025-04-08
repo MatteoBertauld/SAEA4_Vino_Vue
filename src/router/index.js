@@ -13,6 +13,9 @@ import PartenaireView from '@/views/PartenaireView.vue'
 import TravelSummaryView from '@/views/TravelSummaryView.vue'
 import AddPartenaire from '@/components/AddPartenaire.vue'
 
+import ClientsView from '@/views/ClientsView.vue'
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -72,6 +75,11 @@ const router = createRouter({
       path: '/travels/:id',
       name: '/travels/:id',
       component: TravelSummaryView,
+    },
+    {
+      path: '/clients',
+      name: 'clients',
+      component: ClientsView,
     },
     {
       path: '/about',
