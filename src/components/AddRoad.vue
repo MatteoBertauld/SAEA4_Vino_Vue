@@ -27,7 +27,6 @@
     const roads = useRoadsStore()
     const displayError = storeDisplayError()
 
-
     async function add() {
         const result = await roads.AddRoad(props.newRoad)
         displayError.display(result.error, result.title,result.description);
@@ -39,7 +38,6 @@
         displayError.display(result.error, result.title,result.description);
         if(!result.error) { router.push({name:"routedesvins"});}
     }
-
 
     function preview() {
         const fileInput = document.getElementById("input-preview")

@@ -42,6 +42,7 @@ export const LoginStore = defineStore('logins', () => {
 
     } catch (error) {
       console.log(error)
+      user.value = {mail: null}
       return {
           error: true,
           title: "Connexion Impossible",
