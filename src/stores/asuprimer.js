@@ -3,13 +3,11 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { LoginStore } from '@/stores/login';
 
-export const useTravelsIDStore = defineStore('traveId', () => {
+export const useTravelsIDStore = defineStore('travelsId', () => {
   
   const loginStore = LoginStore()
   const list = ref([])
 
-  // URL de base de l'API
-  const urlBase = "https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/"
 
 
   function getTravelById(id) {

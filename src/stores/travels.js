@@ -1,6 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { LoginStore } from '@/stores/login';
 
 
 export const useTravelsStore = defineStore('travels', () => {
@@ -12,6 +13,10 @@ export const useTravelsStore = defineStore('travels', () => {
   const timespans = ref([])
   const targets = ref([])
   const themes = ref([])
+  const listid = ref([])
+
+  const loginStore = LoginStore()
+
 
   async function load(){
     return new Promise( function(resolve) {
@@ -50,7 +55,31 @@ export const useTravelsStore = defineStore('travels', () => {
 
 
 
+  async function getTravelById(id) {
+    console.log("id renvoyé",id)
+    try {
+      console.log("succès id")
+      return await axios.get(`${urlBase}sejours/getsejourbyid/${id}`)
+    } catch (error) {
+        console.error("Erreur lors de la récupération du séjour : ",id, error)
+        return false;
+    }
+  }
 
-  return { list, vineries, timespans, locations, targets, themes } 
+  async function addTravel(travel) {
+    var chaine = "sejours/PostSejour"+ travel.value;
+    var axiosInstance = loginStore.axiosWithToken()
+
+    try {
+      await axiosInstance.post(chaine,travel)
+    // return axios.post(`${urlBase}sejours/PostSejour`,travel.value)
+
+    }catch(error){console.log(error)}
+
+  // Retourne la fonction pour récupérer un séjour par ID et la liste des séjours
+  }
+
+
+  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById } 
 
 })

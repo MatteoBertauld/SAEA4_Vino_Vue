@@ -4,41 +4,32 @@ const props = defineProps({
     travel: {
         required: true
     },
-    
 });
-
 
 
 </script>
 
 <template>
 
+<div v-if="travel && travel.data">
 
-    <main class="container">
-
-
-
- 
-
-        
-
-        <!-- <hr> -->
-
+    <main class="container"> 
+        <hr>
         <h2 class="titreg">Le programme détaillé de votre séjour</h2>
 
-        <section id="etapes" v-for="etape in travel.etapes">
-                    <article class="etape">
-                        <h2>Étape  : {{ etape.titreetape}}</h2>
-                        <p>{{ etape.descriptionetape }}</p>
-                        <img :src="'/src/assets/images/etape/'+etape.photoetape">
-                    </article>
-
+        <section id="etapes" v-for="etape in travel.data.etapes">
+            <article class="etape">
+                <h2>Étape  : {{ etape.titreetape}}</h2>
+                <p>{{ etape.descriptionetape }}</p>
+                <img :src="'/src/assets/images/etape/'+etape.photoetape">
+            </article>
         </section>
+
 
         <hr>
         <h2 class="titreg">Les hébergements proposés</h2>
 
-        <section id="hebergements" v-for="etape in travel.etapes">
+        <section id="hebergements" v-for="etape in travel.data.etapes">
 
             <article class="hebergement">
                 <img :src="'/src/assets/images/hebergement/'+etape.idhebergementNavigation.photohebergement">
@@ -50,22 +41,7 @@ const props = defineProps({
                     <a class="lienheberg link" href="{{ etape.idhebergementNavigation.lienhebergement }}"
                         target="_blank">"{{ etape.idhebergementNavigation.idpartenaireNavigation.nompartenaire }}"</a>
 
-<!-- ------------------Faire le post -->
-
-                    <!-- @isset($editing) -->
-                        <!-- <form action="{{ route('api.sejour-hebergement-edit', ['idsejour' => $travel->idsejour, 'idetape' => etape.idetape]) }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="idhebergement" value="{{ etape.idhebergementNavigation.idhebergement }}">
-                            <button class="button" type="submit">
-                                @if (hebergement.disponibilitehebergement == true)
-                                    <i data-lucide="trash-2"></i>
-                                @else
-                                    <i data-lucide="rotate-cw"></i>
-                                @endif
-                            </button>
-                        </form> -->
                 </article>
-                    <!-- @endisset -->
             </article>
         </section>
 
@@ -74,7 +50,7 @@ const props = defineProps({
         <hr>
         <h2 class="titreg">Les châteaux et les domaines</h2>
 
-        <section id="chateaux" v-for="etape in travel.etapes">
+        <section id="chateaux" v-for="etape in travel.data.etapes">
                 <article class="unchateaux" v-for="visite in etape.idvisites">
                         <img class="imgchateaux" :src="'/src/assets/images/visite/'+visite.photovisite"></img>
                         <p class="descrchateaux">{{ visite.descriptionvisite }}</p>
@@ -83,17 +59,10 @@ const props = defineProps({
                 </article>
         </section>
 
-        <!--
-        @foreach ($sejour->avis as $avis)
-            @php
-                $cpt++;
-            @endphp
-        @endforeach
-        @if ($cpt != 0) -->
         <div id="Avis">
                 <h2 class="titre_info">Les Avis</h2>
                 <div class="container_avis">
-                    <div v-for="Avis in travel.avis" class="avis-item">
+                    <div v-for="Avis in travel.data.avis" class="avis-item">
                         <div class="note">
                             <p class="etoiles">
                                 <Star :class="{ checked: Avis.noteavis >= 1 }" />
@@ -112,8 +81,10 @@ const props = defineProps({
             </div>
 
 
+
     </main>
 
+</div>
 
 
 </template>

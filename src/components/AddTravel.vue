@@ -1,12 +1,12 @@
 <script setup>
 import { ref } from "vue";
-import { useRoadsStore } from '@/stores/roads.js';
+import { useTravelsStore } from '@/stores/travels.js';
 import { storeDisplayError } from '@/stores/displayError';
 import router from "@/router";
 import axios from "axios";
 
 const props = defineProps({
-    newRoad: {
+    newTravel: {
         type: Object,  // Spécifie le type attendu pour la prop
         required: false,
         default: () => ({ 
@@ -32,50 +32,28 @@ const props = defineProps({
         required: false,
         default: () => (false)
     }
-});
+}); 
 
-const roads = useRoadsStore()
+const travelsStore = useTravelsStore()
 const displayError = storeDisplayError()
 
 async function add() {
-    const result = await roads.AddRoad(props.newRoad)
-    displayError.display(result.error, result.title, result.description);
-    if (!result.error) {
-        router.push({ name: "routedesvins" });
-    }
+    console.log(travelsStore.list)
+    const result = await travelsStore.AddTravel(props.newTravel)
+    // displayError.display(result.error, result.title, result.description);
+    // if (!result.error) {
+    //     router.push({ name: "travels" });
+    // }
 }
 
-async function edit() {
-    const result = await roads.ModifieRoad(props.newRoad)
-    displayError.display(result.error, result.title, result.description);
-    if (!result.error) {
-        router.push({ name: "routedesvins" });
-    }
-}
+// async function edit() {
+//     const result = await travelsId.Modifietravel(props.newTravel)
+//     displayError.display(result.error, result.title, result.description);
+//     if (!result.error) {
+//         router.push({ name: "routedesvins" });
+//     }
+// }
 
-function preview() {
-    const fileInput = document.getElementById("input-preview")
-    fileInput.click();
-}
-
-function changeFile(event) {
-    const file = event.target.files[0]; // Le fichier sélectionné
-
-    // Vérifie si un fichier est sélectionné
-    if (file) {
-        const preview = event.target.closest('.parent').querySelector('img');
-        const reader = new FileReader();
-
-        // Lorsque le fichier est lu, mettre à jour l'élément <img> avec l'URL de données
-        reader.onload = function (e) {
-            preview.src = e.target.result; // Met à jour la source de l'image
-            props.newRoad.photoroute = e.target.result;
-        };
-
-        // Lire le fichier comme URL de données (Base64)
-        reader.readAsDataURL(file);
-    }
-}
 </script>
 
 <template>
@@ -86,52 +64,52 @@ function changeFile(event) {
 
                 <p class="container">
                     <label class="label">Titre du séjour</label>
-                    <input class="input" type="text" v-model="newRoad.titresejour" placeholder="Titre du séjour">
+                    <input class="input" type="text" v-model="newTravel.titresejour" placeholder="Titre du séjour">
                 </p>
 
                 <p class="container">
                     <label class="label">Description du séjour</label>
-                    <textarea class="input" v-model="newRoad.descriptionsejour" rows="4" cols="50" placeholder="Description du séjour"></textarea>
+                    <textarea class="input" v-model="newTravel.descriptionsejour" rows="4" cols="50" placeholder="Description du séjour"></textarea>
                 </p>
 
                 <p class="container">
                     <label class="label">Prix du séjour</label>
-                    <input class="input" type="number" v-model="newRoad.prixsejour" placeholder="Prix du séjour" />
+                    <input class="input" type="number" v-model="newTravel.prixsejour" placeholder="Prix du séjour" />
                 </p>
 
                 <p class="container">
                     <label class="label">Durée du séjour</label>
-                    <input class="input" type="number" v-model="newRoad.idduree" placeholder="Durée du séjour (en jours)" />
+                    <input class="input" type="number" v-model="newTravel.idduree" placeholder="Durée du séjour (en jours)" />
                 </p>
 
                 <p class="container">
                     <label class="label">Localité</label>
-                    <input class="input" type="number" v-model="newRoad.idlocalite" placeholder="ID de la localité" />
+                    <input class="input" type="number" v-model="newTravel.idlocalite" placeholder="ID de la localité" />
                 </p>
 
                 <p class="container">
                     <label class="label">Thème</label>
-                    <input class="input" type="number" v-model="newRoad.idtheme" placeholder="ID du thème" />
+                    <input class="input" type="number" v-model="newTravel.idtheme" placeholder="ID du thème" />
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de participants</label>
-                    <input class="input" type="number" v-model="newRoad.idcategorieparticipant" placeholder="ID de la catégorie de participants" />
+                    <input class="input" type="number" v-model="newTravel.idcategorieparticipant" placeholder="ID de la catégorie de participants" />
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de vignoble</label>
-                    <input class="input" type="number" v-model="newRoad.idcategorievignoble" placeholder="ID de la catégorie du vignoble" />
+                    <input class="input" type="number" v-model="newTravel.idcategorievignoble" placeholder="ID de la catégorie du vignoble" />
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de séjour</label>
-                    <input class="input" type="number" v-model="newRoad.idcategoriesejour" placeholder="ID de la catégorie du séjour" />
+                    <input class="input" type="number" v-model="newTravel.idcategoriesejour" placeholder="ID de la catégorie du séjour" />
                 </p>
 
                 <div class="image-preview-container parent">
                     <div id="container-preview-img">
-                        <img id="preview-img" @click="preview" :src="'/src/assets/images/routedesvins/' + newRoad.photoroute"/>
+                        <img id="preview-img" @click="preview" :src="'/src/assets/images/routedesvins/' + newTravel.photoroute"/>
                     </div>
 
                     <input id="input-preview" type="file" name="image" accept="image/*" class="file-input" @change="changeFile">
@@ -139,7 +117,7 @@ function changeFile(event) {
             </div>
         </div>
 
-        <button class="button-road" type="submit" @click="toEdit ? edit() : add()">{{ toEdit ? 'Modifier' : 'Ajouter' }}</button>
+        <button class="button-travel" type="submit" @click="toEdit ? edit() : add()">{{ toEdit ? 'Modifier' : 'Ajouter' }}</button>
     </div>
 </template>
 
@@ -197,7 +175,7 @@ img {
     display : none;
 }
 
-.button-road {
+.button-travel {
     background-color: #fff;
     width: 100%;
     color: #333;
