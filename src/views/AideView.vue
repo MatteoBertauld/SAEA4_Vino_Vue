@@ -1,6 +1,10 @@
 <script setup>
 import { LucideChevronsDown, LucideChevronsUp } from 'lucide-vue-next';
-import '../assets/js/aide.js'
+import { initializeAccordion } from '../assets/js/aide.js';
+import { onMounted } from 'vue'; // Importation explicite de onMounted
+onMounted(() => {
+    initializeAccordion(); // Appeler la fonction pour initialiser les événements des accordéons
+});
 </script>
 
 <template>
@@ -362,7 +366,7 @@ hr {
         .details.visible {
             opacity: 1;
             /* Fully visible */
-            max-height: 100vh;
+            max-height: 500vh;
             /* Adjust as needed */
             width: 60vw;
             img{

@@ -18,7 +18,7 @@
 <template>
     <article>
         <h2 class="centre">
-            <RouterLink :to="{ name: 'one-travel', params: {  id_travel: 2 } }">{{ travel.titresejour }}</RouterLink>
+            <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">{{ travel.titresejour }}</RouterLink>
         </h2>
         <div class="inlineblock">
             <div class="block">
@@ -50,6 +50,7 @@
                         <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 5) }" />
                     </p>
                     <p class="valeur">{{ travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0 }}/5 ({{ travel.avis.length }} avis)</p>
+
                 </div>
             </div>
             <div class="petitContainer">
@@ -63,7 +64,8 @@
                 </div>
             </div>
         </div>
-        <a :href="'/travels/'+travel.idsejour" class="button">Decouvrir</a>
+
+        <RouterLink :to="{path:'/travels/'+travel.idsejour}" v-bind:tooltip="travel.idsejour" class="hovershiny">Decouvrir</RouterLink>
     
     </article>
 

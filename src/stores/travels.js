@@ -48,16 +48,9 @@ export const useTravelsStore = defineStore('travels', () => {
     themes.value.sort((a,b) => (a.libelletheme > b.libelletheme) ? 1 : ((b.libelletheme > a.libelletheme) ? -1 : 0));
   });
 
-  async function getTravelById(id) {
-    if(list.value.length ==0) {list.value = await load();}
-    console.log("test",list.value)
-    for (let i = 0; i < list.value.length; i++) {
-      if (list.value[i].idsejour == id) {
-        return list.value[i];
-      }
-    }
-    return null;
-  }
 
-  return { list, vineries, timespans, locations, targets, themes, getTravelById } 
+
+
+  return { list, vineries, timespans, locations, targets, themes } 
+
 })
