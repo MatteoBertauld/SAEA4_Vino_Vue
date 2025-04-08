@@ -25,8 +25,6 @@ export const LoginStore = defineStore('logins', () => {
     localStorage.removeItem('token');
   }
     
-
-
   async function connexion(email,password) {
     try {
       const response = await axios.post(urlBase + 'login', {
@@ -46,6 +44,7 @@ export const LoginStore = defineStore('logins', () => {
 
     } catch (error) {
       console.log(error)
+      user.value = {mail: null}
       return {
           error: true,
           title: "Connexion Impossible",

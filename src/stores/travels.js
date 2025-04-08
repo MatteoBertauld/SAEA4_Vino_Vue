@@ -56,30 +56,28 @@ export const useTravelsStore = defineStore('travels', () => {
 
 
   async function getTravelById(id) {
-    console.log("id renvoyé",id)
-    try {
-      console.log("succès id")
-      return await axios.get(`${urlBase}sejours/getsejourbyid/${id}`)
-    } catch (error) {
-        console.error("Erreur lors de la récupération du séjour : ",id, error)
-        return false;
-    }
-  }
-
+    return new Promise( function(resolve) {
+      axios.get(urlBase+`Sejours/GetSejourById/${id}`)
+      .then(response => {
+          resolve(response.data)
+      })
+  })}
+  
   async function addTravel(travel) {
-    var chaine = "sejours/PostSejour"+ travel.value;
-    var axiosInstance = loginStore.axiosWithToken()
-
-    try {
-      await axiosInstance.post(chaine,travel)
-    // return axios.post(`${urlBase}sejours/PostSejour`,travel.value)
-
-    }catch(error){console.log(error)}
-
-  // Retourne la fonction pour récupérer un séjour par ID et la liste des séjours
+    
+    axios.post(urlBase+"Sejours/PostSejour",travel ,{headers: {
+      "Authorization" : `Bearer ${loginStore.token}`
+    }})
+      .then(async(response) => {
+        
+        list.value.push(await getTravelById(response.data.idsejour));
+      }).catch(error =>{
+        console.log(error)
+      })
+    
   }
 
 
-  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById } 
+  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById,load } 
 
 })

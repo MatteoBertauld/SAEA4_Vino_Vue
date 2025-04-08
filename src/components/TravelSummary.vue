@@ -1,5 +1,8 @@
 <script setup>
 
+import "https://unpkg.com/lucide@latest"
+import { Star } from 'lucide-vue-next';
+
 const props = defineProps({
     travel: {
         required: true
@@ -9,15 +12,13 @@ const props = defineProps({
 
 </script>
 
-<template>
-
-<div v-if="travel && travel.data">
-
-    <main class="container"> 
+<template >
+    
+    <main class="container" v-if="travel"> 
         <hr>
         <h2 class="titreg">Le programme détaillé de votre séjour</h2>
 
-        <section id="etapes" v-for="etape in travel.data.etapes">
+        <section id="etapes" v-for="etape in travel.etapes">
             <article class="etape">
                 <h2>Étape  : {{ etape.titreetape}}</h2>
                 <p>{{ etape.descriptionetape }}</p>
@@ -29,7 +30,7 @@ const props = defineProps({
         <hr>
         <h2 class="titreg">Les hébergements proposés</h2>
 
-        <section id="hebergements" v-for="etape in travel.data.etapes">
+        <section id="hebergements" v-for="etape in travel.etapes">
 
             <article class="hebergement">
                 <img :src="'/src/assets/images/hebergement/'+etape.idhebergementNavigation.photohebergement">
@@ -50,7 +51,7 @@ const props = defineProps({
         <hr>
         <h2 class="titreg">Les châteaux et les domaines</h2>
 
-        <section id="chateaux" v-for="etape in travel.data.etapes">
+        <section id="chateaux" v-for="etape in travel.etapes">
                 <article class="unchateaux" v-for="visite in etape.idvisites">
                         <img class="imgchateaux" :src="'/src/assets/images/visite/'+visite.photovisite"></img>
                         <p class="descrchateaux">{{ visite.descriptionvisite }}</p>
@@ -59,10 +60,10 @@ const props = defineProps({
                 </article>
         </section>
 
-        <div id="Avis">
+        <div id="Avis" v-if="travel.avis.length > 0">
                 <h2 class="titre_info">Les Avis</h2>
                 <div class="container_avis">
-                    <div v-for="Avis in travel.data.avis" class="avis-item">
+                    <div v-for="Avis in travel.avis" class="avis-item">
                         <div class="note">
                             <p class="etoiles">
                                 <Star :class="{ checked: Avis.noteavis >= 1 }" />
@@ -84,13 +85,11 @@ const props = defineProps({
 
     </main>
 
-</div>
 
 
 </template>
 
 <style>
-
 
 
 
