@@ -120,11 +120,8 @@ h1 {
     /* Centre le texte */
 }
 
-.button {
-    min-width: auto;
-    width: auto;
-    /* Taille minimale */
-}
+
+
 
 article {
     margin: 10px;
