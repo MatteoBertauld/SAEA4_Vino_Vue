@@ -7,7 +7,6 @@
         Heart, UsersRound, Baby,
         Star
      } from 'lucide-vue-next';
-import { computed } from 'vue';
 
     defineProps({
         travel: {
@@ -15,7 +14,6 @@ import { computed } from 'vue';
         }
     });
 </script>
-
 
 <template>
     <article>
@@ -43,23 +41,19 @@ import { computed } from 'vue';
                     </div>
 
                 </div>
-                <div class="note" v-if="travel.avis != null">
-                    
+                <div class="note" v-if="travel.avis.length != 0">
                     <p class="etoiles">
-                        <Star :class="{ checked: (travel.avis.reduce((note1, note2) => note1.noteavis + note2.noteavis??0, 0) / travel.avis.length || 0) >= 1 }" />
-                        <Star :class="{ checked: (travel.avis.reduce((note1, note2) => note1.noteavis + note2.noteavis??0, 0) / travel.avis.length || 0) >= 2 }" />
-                        <Star :class="{ checked: (travel.avis.reduce((note1, note2) => note1.noteavis + note2.noteavis??0, 0) / travel.avis.length || 0) >= 3 }" />
-                        <Star :class="{ checked: (travel.avis.reduce((note1, note2) => note1.noteavis + note2.noteavis??0, 0) / travel.avis.length || 0) >= 4 }" />
-                        <Star :class="{ checked: (travel.avis.reduce((note1, note2) => note1.noteavis + note2.noteavis??0, 0) / travel.avis.length || 0) >= 5 }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0 ) >= 1) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 2) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 3) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 4) }" />
+                        <Star :class="{ checked: ((travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0) >= 5) }" />
                     </p>
-                    <p class="valeur">{{ travel.avis.reduce((note1, note2) => note1.noteavis + note2.noteavis??0, 0) / travel.avis.length || 0 }}/5 ({{ travel.avis.length }} avis)</p>
+                    <p class="valeur">{{ travel.avis.reduce((total, {noteavis}) => total + noteavis, 0) / travel.avis.length || 0 }}/5 ({{ travel.avis.length }} avis)</p>
                 </div>
             </div>
             <div class="petitContainer">
-                <div class="icons">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                </div>
+
                 <div class="column">
                     <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }} <span v-if="travel.idlocaliteNavigation?.libellelocalite">({{travel.idlocaliteNavigation?.libellelocalite}})</span></p>
                     <hr>
@@ -69,7 +63,7 @@ import { computed } from 'vue';
                 </div>
             </div>
         </div>
-        <a :href="'/travels/'+travel.idsejour" class="button fillwidth">Decouvrir</a>
+        <a :href="'/travels/'+travel.idsejour" class="button">Decouvrir</a>
     
     </article>
 
@@ -93,6 +87,7 @@ article{
     padding: 10px;
     margin: 50px 0 50px 0;
     border: white solid 2px;
+    position: relative;
 }
 article:hover{
     border: solid black 2px;
@@ -116,14 +111,16 @@ article:hover{
     flex-direction: column;
 }
 .button{
-    width: 100%;
+    width: 20%;
     padding:25px;
-    margin:25px;
+    right: 5%;
+    bottom: -15%;
     background-color: black;
     color: white;
     border-radius: 10%;
-
+    position: absolute;
     justify-content: stretch;
+    text-align: center;
 }
 
 .fillwidth{
@@ -164,7 +161,7 @@ hr {
 
 #icons{
     width: 100%;
-    margin: 1rem 0 0 0.3rem;
+    margin: 0.5rem 0;
     align-items: center;
 }
 
@@ -174,4 +171,15 @@ hr {
     height: 32px;
 }
 
+.valeur{
+    padding-bottom:1rem;
+}
+
+.note .etoiles .checked {
+    fill: #b6005e;
+}
+
+.etoiles{
+    margin: 0;
+}
 </style>
