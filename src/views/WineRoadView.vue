@@ -17,7 +17,7 @@
 
     // Calcul du tableau filtré en fonction de la recherche
     const filteredRoads = computed(() => {
-        
+        console.log(roads.list)
         return roads.list.filter(road =>
             road.titreroute.toLowerCase().includes(searchQuery.value.toLowerCase())
         );

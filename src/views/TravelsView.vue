@@ -84,8 +84,10 @@ const filteredTravels = computed((previous) => {
         <option v-for="theme in travels.themes" :value="theme.idtheme"> {{ theme.libelletheme }}</option>
       </select>
     </div>
+
     <section class="bigContainer">
-      <Travel v-for="travel in filteredTravels['list']" :travel="travel"></Travel>
+      <Travel v-for="travel in filteredTravels['list']" :travel="travel" class="travel"></Travel>
+
       <div id="noVinery" style="display: none;">Aucun séjour n'a été trouvé pour ces paramètres.</div>
     </section>
 
@@ -115,7 +117,18 @@ const filteredTravels = computed((previous) => {
   margin: 3vh 0 3vh 0;
   justify-content: space-around;
 }
+@media only screen and (max-width: 1024px) {
+  .bigContainer {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .travel{
+    width: 100%;
+  }
 
+}
 .filtrecontainer {
   width: 80vw;
   display: flex;

@@ -83,7 +83,7 @@
 }
 article{
     background-color: aliceblue;
-    width: 30vw;
+    width: 35%;
     height: 100%;
     border-radius: 5%;
     padding: 10px;
@@ -99,6 +99,65 @@ article:hover{
     width: 50%;
     padding: 0 15px;
 }
+.block{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.inlineblock{
+    display: flex;
+    flex-direction: row;
+}
+
+.button{
+    width: 20%;
+    font-size: auto;
+    padding:3%;
+    right: 5%;
+    bottom: -15%;
+    background-color: black;
+    color: white;
+    border-radius: 10%;
+    position: absolute;
+    justify-content: stretch;
+    text-align: center;
+}
+
+@media only screen and (max-width: 1024px) {
+    article{
+        width: 90%;
+        left:0%;
+    }
+    .block{
+        flex: 0;
+        width: 100%;
+    }
+
+    .inlineblock{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .button{
+        bottom: -5%;
+        width: 100%;
+        right: 0%;
+        padding: 0;
+        border-radius: 7%;
+    }
+
+    .petitContainer{
+        width: 100%;
+        padding: 0;
+    }
+    .inlineblock#icons{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+}
 .mainimage{
     height: 150px;
 }
@@ -112,18 +171,6 @@ article:hover{
     display: flex;
     flex-direction: column;
 }
-.button{
-    width: 20%;
-    padding:25px;
-    right: 5%;
-    bottom: -15%;
-    background-color: black;
-    color: white;
-    border-radius: 10%;
-    position: absolute;
-    justify-content: stretch;
-    text-align: center;
-}
 
 .fillwidth{
     width: 100%;
@@ -133,21 +180,10 @@ article:hover{
     color: black;
 }
 
-.inlineblock{
-    display: flex;
-    flex-direction: row;
-}
-
-.block{
-    margin: 0;
-}
 
 
 
-.block{
-    display: flex;
-    flex-direction: column;
-}
+
 a{
     text-decoration: none;
     color: black;
