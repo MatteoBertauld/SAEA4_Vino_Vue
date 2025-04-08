@@ -18,7 +18,7 @@ const props = defineProps({
             idtheme: 0,
             idcategorieparticipant: 0,
             titresejour: "string",
-            photosejour: "string",
+            photosejour: "NOIMAGE.jpg",
             descriptionsejour: "string",
             prixsejour: 0,
         })
@@ -36,19 +36,34 @@ const displayError = storeDisplayError()
 async function add() {
     console.log(travelsStore.list)
     const result = await travelsStore.addTravel(props.newTravel)
-    // displayError.display(result.error, result.title, result.description);
-    // if (!result.error) {
-    //     router.push({ name: "travels" });
-    // }
+    
 }
 
-// async function edit() {
-//     const result = await travelsId.Modifietravel(props.newTravel)
-//     displayError.display(result.error, result.title, result.description);
-//     if (!result.error) {
-//         router.push({ name: "routedesvins" });
-//     }
-// }
+function preview() {
+        const fileInput = document.getElementById("input-preview")
+        fileInput.click();
+    }
+
+function changeFile(event) {
+    const file = event.target.files[0]; // Le fichier sélectionné
+
+    // Vérifie si un fichier est sélectionné
+    if (file) {
+        const preview = event.target.closest('.parent').querySelector('img');
+        console.log("preview",preview)
+        const reader = new FileReader();
+
+        // Lorsque le fichier est lu, mettre à jour l'élément <img> avec l'URL de données
+        reader.onload = function(e) {
+            preview.src = e.target.result; // Met à jour la source de l'image
+            props.newRoad.photoroute = e.target.result;
+            console.log(preview.src)
+        };
+
+        // Lire le fichier comme URL de données (Base64)
+        reader.readAsDataURL(file);
+    }
+};
 
 </script>
 
@@ -105,7 +120,7 @@ async function add() {
 
                 <div class="image-preview-container parent">
                     <div id="container-preview-img">
-                        <img id="preview-img" @click="preview" :src="'/src/assets/images/routedesvins/' + newTravel.photoroute"/>
+                        <img id="preview-img" @click="preview" :src="'/src/assets/images/sejours/' + newTravel.photosejour"/>
                     </div>
 
                     <input id="input-preview" type="file" name="image" accept="image/*" class="file-input" @change="changeFile">
