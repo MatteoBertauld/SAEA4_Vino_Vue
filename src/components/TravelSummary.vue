@@ -1,6 +1,7 @@
 <script setup>
 
-
+import "https://unpkg.com/lucide@latest"
+import { Star } from 'lucide-vue-next';
 
 const props = defineProps({
     travel: {
@@ -59,7 +60,7 @@ const props = defineProps({
                 </article>
         </section>
 
-        <div id="Avis">
+        <div id="Avis" v-if="travel.avis.length > 0">
                 <h2 class="titre_info">Les Avis</h2>
                 <div class="container_avis">
                     <div v-for="Avis in travel.avis" class="avis-item">
@@ -89,7 +90,6 @@ const props = defineProps({
 </template>
 
 <style>
-
 
 
 
