@@ -20,7 +20,7 @@ const props = defineProps({
     }
     
 }); 
-console.log(props.travelEdit);
+
 const travelEdit = ref(props.travelEdit);
 const travelsStore = useTravelsStore()
 const displayError = storeDisplayError()
@@ -28,7 +28,7 @@ const displayError = storeDisplayError()
 
 
 async function edit() {
-    
+        console.log(props.travelEdit)
         const result = await travelsStore.putTravel(props.travelID,props.travelEdit,)
     }
 
