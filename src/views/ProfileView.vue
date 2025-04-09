@@ -4,8 +4,10 @@
     import { storeDisplayError } from '@/stores/displayError';
     import router from "@/router";
     import { useClientsStore } from '@/stores/client';
+    import { LoginStore } from '@/stores/login' 
 
     const displayError = storeDisplayError()
+    const loginStore = LoginStore()
     const clientsStore = useClientsStore();
 
     const client = ref(
@@ -33,9 +35,13 @@
         console.log("edit")
         const result = await clientsStore.ModifieClient(client.value)
         displayError.display(result.error, result.title,result.description);
-        if(!result.error) { router.push({name:"routedesvins"});}
+        if(!result.error) { location.reload();}
     }
 
+    function logout(){
+        loginStore.logOut();
+        router.push({name:"home"});
+    }
 </script>
 
 <template>
@@ -123,6 +129,7 @@
 
 <hr>
 <button @click="edit()">Modifier</button>
+<button @click="logout()">Se déconnecter</button>
 
 </div>
 
