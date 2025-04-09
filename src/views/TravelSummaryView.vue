@@ -11,10 +11,10 @@ const loading = ref(true);
 
 onMounted(async () => {
   try {
-      oneTravel.value = await travelsStore.getTravelById(travelId);
-      loading.value = false
+    oneTravel.value = await travelsStore.getTravelById(travelId);
+    loading.value = false
   } catch (error) {
-      console.error("Error fetching travel data:", error);
+    console.error("Error fetching travel data:", error);
   }
 });
 
@@ -25,10 +25,10 @@ onMounted(async () => {
 
     <div v-if="loading.value">Chargement ...</div>
     <section v-else class="bigContainer">
-        <TravelSummary :travel="oneTravel"></TravelSummary>
+      <TravelSummary :travel="oneTravel"></TravelSummary>
     </section>
-</div>
-  
+  </div>
+
 </template>
 
 <script>

@@ -1,37 +1,47 @@
 <script setup>
-
+import { ref, computed } from 'vue';
 import "https://unpkg.com/lucide@latest"
 import { Star } from 'lucide-vue-next';
+import PutTravel from './PutTravel.vue';
 
 const props = defineProps({
     travel: {
         required: true
     },
 });
-
+const showComponent = ref(false)
 
 </script>
 
-<template >
-    
-    <main class="container" v-if="travel">         
+<template>
+
+    <main class="container" v-if="travel">
         <section id="sejour">
             <div id="photo">
-                <img :src="'/src/assets/images/sejours/'+travel.photosejour">
+                <img :src="'/src/assets/images/sejours/' + travel.photosejour">
             </div>
-                <div id="description">
-                    <h1 class="title">{{ travel.titresejour }}</h1>
-                    <hr>
-                        <h4 class="prix">À partir de <span class="euros">{{ travel.prixsejour }}€ / personne</span></h4>
-                    <p class="description">{{ travel.descriptionsejour }}</p>
-                    <div id="categories">
-                        <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
-                        <p>{{ travel.iddureeNavigation.libelleduree }}</p>
-                        <p>{{ travel.idcategoriesejourNavigation.libellecategoriesejour }}</p>
-                        <p>{{ travel.idthemeNavigation.libelletheme }}</p>
-                    </div>
-                </div> 
-        </section> 
+            <div id="description">
+                <h1 class="title">{{ travel.titresejour }}</h1>
+                <hr>
+                <h4 class="prix">À partir de <span class="euros">{{ travel.prixsejour }}€ / personne</span></h4>
+                <p class="description">{{ travel.descriptionsejour }}</p>
+                <div id="categories">
+                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
+                    <p>{{ travel.iddureeNavigation.libelleduree }}</p>
+                    <p>{{ travel.idcategoriesejourNavigation.libellecategoriesejour }}</p>
+                    <p>{{ travel.idthemeNavigation.libelletheme }}</p>
+                </div>
+            </div>
+            <button id="addTravel" class="buttons" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
+
+        </section>
+        
+        <div id="container-addRoad-View" v-if="showComponent">
+                
+                <PutTravel id="addRoadView" :travelEdit="travel" :travelID="travel.idsejour "/>
+                <button id="CloseAddRoadView" @click="showComponent = false">X</button>
+            </div>
+
 
 
         <hr>
@@ -39,9 +49,9 @@ const props = defineProps({
 
         <section id="etapes" v-for="etape in travel.etapes">
             <article class="etape">
-                <h2>Étape  : {{ etape.titreetape}}</h2>
+                <h2>Étape : {{ etape.titreetape }}</h2>
                 <p>{{ etape.descriptionetape }}</p>
-                <img class="image" :src="'/src/assets/images/etape/'+etape.photoetape">
+                <img class="image" :src="'/src/assets/images/etape/' + etape.photoetape">
             </article>
         </section>
 
@@ -52,14 +62,15 @@ const props = defineProps({
         <section id="hebergements" v-for="etape in travel.etapes">
 
             <article class="hebergement">
-                <img class="imgheberg" :src="'/src/assets/images/hebergement/'+etape.idhebergementNavigation.photohebergement">
+                <img class="imgheberg"
+                    :src="'/src/assets/images/hebergement/' + etape.idhebergementNavigation.photohebergement">
                 <p class="descrheberg">{{ etape.idhebergementNavigation.descriptionhebergement }}</p>
 
                 <article id="hotel">
 
 
-                    <a class="lienheberg" href="{{ etape.idhebergementNavigation.lienhebergement }}"
-                        target="_blank">"{{ etape.idhebergementNavigation.idpartenaireNavigation.nompartenaire }}"</a>
+                    <a class="lienheberg" href="{{ etape.idhebergementNavigation.lienhebergement }}" target="_blank">"{{
+                        etape.idhebergementNavigation.idpartenaireNavigation.nompartenaire }}"</a>
 
                 </article>
             </article>
@@ -71,34 +82,34 @@ const props = defineProps({
         <h2 class="titreg">Les châteaux et les domaines</h2>
 
         <section id="chateaux" v-for="etape in travel.etapes">
-                <article class="unchateaux" v-for="visite in etape.idvisites">
-                        <img class="imgchateaux" :src="'/src/assets/images/visite/'+visite.photovisite"></img>
-                        <p class="descrchateaux">{{ visite.descriptionvisite }}</p>
-                            <a class="lienchateaux" href="https://www.vinotrip.com/fr/partenaires/25-domaine-trapet"
-                                target="_blank">{{ visite.idpartenaireNavigation.nompartenaire }}</a>
-                </article>
+            <article class="unchateaux" v-for="visite in etape.idvisites">
+                <img class="imgchateaux" :src="'/src/assets/images/visite/' + visite.photovisite"></img>
+                <p class="descrchateaux">{{ visite.descriptionvisite }}</p>
+                <a class="lienchateaux" href="https://www.vinotrip.com/fr/partenaires/25-domaine-trapet"
+                    target="_blank">{{ visite.idpartenaireNavigation.nompartenaire }}</a>
+            </article>
         </section>
 
         <div id="Avis" v-if="travel.avis.length > 0">
-                <h2 class="titre_info">Les Avis</h2>
-                <div class="container_avis">
-                    <div v-for="Avis in travel.avis" class="avis-item">
-                        <div class="note">
-                            <p class="etoiles">
-                                <Star :class="{ checked: Avis.noteavis >= 1 }" />
-                                <Star :class="{ checked: Avis.noteavis >= 2 }" />
-                                <Star :class="{ checked: Avis.noteavis >= 3 }" />
-                                <Star :class="{ checked: Avis.noteavis >= 4 }" />
-                                <Star :class="{ checked: Avis.noteavis >= 5 }" />
-                            </p>
-                        </div>
-                        <div class="exemple-avis">
-                            <p class="titre-exemple">{{ Avis.titreavis }}</p>
-                            <p class="description-exemple">{{ Avis.descriptionavis }}</p>
-                        </div>
+            <h2 class="titre_info">Les Avis</h2>
+            <div class="container_avis">
+                <div v-for="Avis in travel.avis" class="avis-item">
+                    <div class="note">
+                        <p class="etoiles">
+                            <Star :class="{ checked: Avis.noteavis >= 1 }" />
+                            <Star :class="{ checked: Avis.noteavis >= 2 }" />
+                            <Star :class="{ checked: Avis.noteavis >= 3 }" />
+                            <Star :class="{ checked: Avis.noteavis >= 4 }" />
+                            <Star :class="{ checked: Avis.noteavis >= 5 }" />
+                        </p>
+                    </div>
+                    <div class="exemple-avis">
+                        <p class="titre-exemple">{{ Avis.titreavis }}</p>
+                        <p class="description-exemple">{{ Avis.descriptionavis }}</p>
                     </div>
                 </div>
             </div>
+        </div>
 
 
 
@@ -110,10 +121,11 @@ const props = defineProps({
 
 <style>
 
-
-
-section {
-    margin: 20px 0;
+#sejour #description .buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 0;
 }
 
 #sejour {
@@ -321,5 +333,4 @@ hr {
 #hebergements .hebergement .lienheberg {
     grid-row: 2 / 2;
 }
-
 </style>
