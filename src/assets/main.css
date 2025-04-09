@@ -1,59 +1,3 @@
-/* body{
-  font-family: "Roboto", sans-serif;
-}
-
-*{
-  margin:0;
-  padding: 0;
-}
-
-
-
-.legalContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-}
-.legalContent{
-  text-align: justify;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 60%;
-}
-
-.button {
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: inherit;
-  background-color: #e2e8f0;
-  border: 2px solid transparent;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 100ms, color 100ms, border-color 100ms;
-  font-size: 1rem;
-  user-select: none;
-}
-
-.button:hover:not(:disabled) {
-  background-color: #b6005e;
-  color: white;
-}
-
-.button:disabled {
-  color: #718096;
-  cursor: not-allowed;
-}
-
-.button.button-sm {
-  padding: 0.25rem 0.75rem;
-}
-*/
-
 :root {
   --background-white: #e6e9ef;
   --background-light: #d1d2d3;
@@ -136,4 +80,19 @@ h4, p, label,a,span {
 
 .note .etoiles .checked {
   fill: #b6005e;
+}
+
+
+.legalContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.legalContent{
+  text-align: justify;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 60%;
 }

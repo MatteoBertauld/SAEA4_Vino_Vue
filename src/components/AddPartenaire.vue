@@ -160,19 +160,93 @@ async function add() {
 
 
 <style scoped>
+
+
+/* Form Container */
 form {
-    max-width: 600px;
-    margin: auto;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    gap: 1.5rem;
 }
 
+/* Fieldset Styling */
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background-color: #fff;
+}
+
+legend {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    padding: 0 0.5rem;
+}
+
+/* Labels and Inputs */
 label {
-    margin-top: 1em;
+    display: block;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #555;
 }
 
-button {
-    margin-top: 1em;
-    padding: 0.5em 1em;
+input, select {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
 }
+
+input:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Buttons */
+button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--button);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--button-hover-hard);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    form {
+        padding: 1rem;
+    }
+
+    fieldset {
+        padding: 1rem;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
 </style>

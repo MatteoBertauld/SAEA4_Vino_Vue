@@ -105,7 +105,7 @@ const router = useRouter();
     justify-content: center;
     gap: 20px;
     width: 100%;
-    padding: 0 5%;
+    padding: 0 20%;
 }
 
 .homepage-avis-travel {
@@ -166,22 +166,4 @@ const router = useRouter();
     flex-direction: row;
     justify-content: space-between;
 }
-
-
-.homepage-avis-read {
-    color: var(--text-hover-light);
-    text-decoration: none;
-}
-
-.homepage-avis-read:hover {
-    cursor: pointer;
-    color: var(--text-hover-dark);
-    text-decoration: underline;
-}
-
-
-
-
-
-
 </style>

@@ -28,9 +28,8 @@ const isMenuOpen = false;
     
     <nav id="header-topmenu">
       <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profile' : '/login'">{{loginStore.isAuthenticated ? "Profil" : "Se connecter"}}</RouterLink>|
-      <RouterLink class="header-link" to="/clients">Admin</RouterLink>|
       <RouterLink class="header-link" to="/aide">Aide</RouterLink>|
-      
+      <RouterLink class="header-link" to="/clients">Clients</RouterLink>
       <RouterLink class="header-link" to="/partenaires">Partenaires</RouterLink>
       <RouterLink class="header-link" to="/routedesvins">Route des vins</RouterLink>
       <RouterLink class="header-link" to="/travels">Sejours</RouterLink>

@@ -15,105 +15,87 @@ const showComponent = ref(false)
 
 <template>
 
-    <main class="container" v-if="travel">
-        <section id="sejour">
-            <div id="photo">
+<main class="container" v-if="travel">
+    <section id="sejour">
+        <div id="sejour-section-left">
+            <div id="sejour-image">
                 <img :src="'/src/assets/images/sejours/' + travel.photosejour">
             </div>
-            <div id="description">
-                <h1 class="title">{{ travel.titresejour }}</h1>
-                <hr>
-                <h4 class="prix">À partir de <span class="euros">{{ travel.prixsejour }}€ / personne</span></h4>
-                <p class="description">{{ travel.descriptionsejour }}</p>
-                <div id="categories">
-                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
+            <hr class="sejour-section-left-hr">
+            <h2 class="travel-title">Le programme détaillé de votre séjour</h2>
+
+            <section class="sejour-article" id="etapes" v-for="etape in travel.etapes">
+                <img :src="'/src/assets/images/etape/' + etape.photoetape"> 
+                <div class="sejour-article-text">
+                    <h2>{{ etape.titreetape }}</h2>
+                    <p>{{ etape.descriptionetape }}</p>
+                </div>
+            </section>
+
+            <hr class="sejour-section-left-hr">
+
+            <h2 class="travel-title">Les hébergements proposés</h2>
+
+            <section class="sejour-article" id="hebergements" v-for="etape in travel.etapes">
+                <img :src="'/src/assets/images/hebergement/' + etape.idhebergementNavigation.photohebergement">
+                <div class="sejour-article-text">
+                    <h2>{{ etape.idhebergementNavigation.idpartenaireNavigation.nompartenaire }}</h2>
+                    <p>{{ etape.idhebergementNavigation.descriptionhebergement }}</p>
+                    <a class="sejour-bouton-lien button-classic" :href="etape.idhebergementNavigation.lienhebergement" target="_blank">{{etape.idhebergementNavigation.idpartenaireNavigation.nompartenaire }}</a>
+                </div>
+            </section>
+
+
+            <hr class="sejour-section-left-hr">
+            
+
+            <div id="Avis" v-if="travel.avis.length > 0">
+                <div id="travel-avis-center">
+                    <h2 class="travel-title">Les Avis</h2>
+                    <div v-for="Avis in travel.avis" class="travel-avis-container">
+
+                        <div class="travel-avis-travel_note">
+                            <a class="travel-avis-travel">{{ Avis.titreavis }}</a>
+                            <div class="travel-avis-note">
+                                <div class="travel-avis-etoiles-container" v-for="index in 5">
+                                    <i v-if="Avis.noteavis >= index" class="fa-solid fa-star star"></i>
+                                    <i v-else class="fa-regular fa-star star"></i>
+                                </div>
+                                <p class="travel-avis-note-valeur">{{ Avis.noteavis}}/5</p>
+                            </div>
+                        </div>
+                        <div class="travel-avis-description_lire">
+                            <p class="description-exemple">{{ Avis.descriptionavis }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div id="sejour-section-right">
+            <div id="section-fixe">
+                <h1 class="sejour-title">{{ travel.titresejour }}</h1>
+                <div id="sejour-price-detail">
+                    <hr class="sejour-section-right-hr">
                     <p>{{ travel.iddureeNavigation.libelleduree }}</p>
+                    <p id="sejour-prix"><span id="euros">{{ travel.prixsejour }}€</span> / pers</p>
+                    <hr class="sejour-section-right-hr">
+                </div>
+                
+                <div id="sejour-categories">
+                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
                     <p>{{ travel.idcategoriesejourNavigation.libellecategoriesejour }}</p>
                     <p>{{ travel.idthemeNavigation.libelletheme }}</p>
                 </div>
-            </div>
-            <button id="addTravel" class="buttons" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
-
-        </section>
-        
-        <div id="container-addRoad-View" v-if="showComponent">
-                
-                <PutTravel id="addRoadView" :travelEdit="travel" :travelID="travel.idsejour "/>
-                <button id="CloseAddRoadView" @click="showComponent = false">X</button>
-            </div>
-
-
-
-        <hr>
-        <h2 class="titreg">Le programme détaillé de votre séjour</h2>
-
-        <section id="etapes" v-for="etape in travel.etapes">
-            <article class="etape">
-                <h2>Étape : {{ etape.titreetape }}</h2>
-                <p>{{ etape.descriptionetape }}</p>
-                <img class="image" :src="'/src/assets/images/etape/' + etape.photoetape">
-            </article>
-        </section>
-
-
-        <hr>
-        <h2 class="titreg">Les hébergements proposés</h2>
-
-        <section id="hebergements" v-for="etape in travel.etapes">
-
-            <article class="hebergement">
-                <img class="imgheberg"
-                    :src="'/src/assets/images/hebergement/' + etape.idhebergementNavigation.photohebergement">
-                <p class="descrheberg">{{ etape.idhebergementNavigation.descriptionhebergement }}</p>
-
-                <article id="hotel">
-
-
-                    <a class="lienheberg" href="{{ etape.idhebergementNavigation.lienhebergement }}" target="_blank">"{{
-                        etape.idhebergementNavigation.idpartenaireNavigation.nompartenaire }}"</a>
-
-                </article>
-            </article>
-        </section>
-
-
-
-        <hr>
-        <h2 class="titreg">Les châteaux et les domaines</h2>
-
-        <section id="chateaux" v-for="etape in travel.etapes">
-            <article class="unchateaux" v-for="visite in etape.idvisites">
-                <img class="imgchateaux" :src="'/src/assets/images/visite/' + visite.photovisite"></img>
-                <p class="descrchateaux">{{ visite.descriptionvisite }}</p>
-                <a class="lienchateaux" href="https://www.vinotrip.com/fr/partenaires/25-domaine-trapet"
-                    target="_blank">{{ visite.idpartenaireNavigation.nompartenaire }}</a>
-            </article>
-        </section>
-
-        <div id="Avis" v-if="travel.avis.length > 0">
-            <h2 class="titre_info">Les Avis</h2>
-            <div class="container_avis">
-                <div v-for="Avis in travel.avis" class="avis-item">
-                    <div class="note">
-                        <p class="etoiles">
-                            <Star :class="{ checked: Avis.noteavis >= 1 }" />
-                            <Star :class="{ checked: Avis.noteavis >= 2 }" />
-                            <Star :class="{ checked: Avis.noteavis >= 3 }" />
-                            <Star :class="{ checked: Avis.noteavis >= 4 }" />
-                            <Star :class="{ checked: Avis.noteavis >= 5 }" />
-                        </p>
-                    </div>
-                    <div class="exemple-avis">
-                        <p class="titre-exemple">{{ Avis.titreavis }}</p>
-                        <p class="description-exemple">{{ Avis.descriptionavis }}</p>
-                    </div>
-                </div>
+                <p id="sejour-description">{{ travel.descriptionsejour }}</p>
             </div>
         </div>
 
-
-
-    </main>
+    </section>
+  
+</main>
 
 
 
@@ -121,216 +103,209 @@ const showComponent = ref(false)
 
 <style>
 
-#sejour #description .buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    padding: 0;
-}
-
 #sejour {
-    display: flex;
-    position: relative;
-    width: 100%;
-    padding: 1rem;
-    border: 2px solid transparent;
-    border-radius: 6px;
-    gap: 1rem;
-    transition: border 100ms;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
 }
 
-#sejour #description {
-    flex: 3;
-    width: calc(100% * (3 / 5));
-    border-left: 2px solid #b6005e;
-    padding-left: 1rem;
+#sejour-section-right {
+    
+}
+#section-fixe {
+    position: fixed;
     display: flex;
+    margin-right: 20px;
     flex-direction: column;
-    gap: 1rem;
-}
-
-#sejour #description .title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-#sejour #description hr {
-    height: 4px;
-    background-color: #b6005e;
-    margin: 1rem auto;
-    width: 20%;
-}
-
-#sejour #description .prix {
-    font-weight: normal;
-    display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    background-color: var(--background-white);
+    border: solid 2px var(--border);
+    border-radius: 20px;
+    padding:20px;    
+    height: 400px;
 }
 
-#sejour #description .prix .euros {
-    color: #b6005e;
-    font-weight: bold;
+#sejour-section-left {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#sejour #description #categories {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
-}
 
-#sejour #description #categories p {
-    display: block;
-    padding: 0.5rem;
-    border: 1px solid #b6005e;
-    border-radius: 50vw;
-    text-align: center;
-    user-select: none;
-}
-
-#sejour #photo {
-    flex: 2;
-    width: calc(100% * (2 / 5));
-    overflow: auto;
+#sejour-image {
     width: 100%;
-    display: grid;
-    grid-template-columns: 100%;
-    grid-auto-rows: 1fr;
-    gap: 1rem;
+    height: 400px;
 }
 
-#sejour #photo img,
-#sejour #photo .photo img {
+#sejour-image img{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
-    grid-column: 1 / 2;
 }
 
-#sejour #photo .photo {
-    position: relative;
+.sejour-section-right-hr {
     width: 100%;
+    height: 2px;
+    background-color: var(--border);
 }
 
-
-#etapes {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-#etapes .etape {
+#sejour-price-detail {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem;
-    background-color: #edf2f7;
-    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    width: min(100%,150px);
+}
+#sejour-price-detail p {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--text-black);
 }
 
-#etapes .etape .image {
+#sejour-price-detail span {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-black);
+}
+
+#sejour-categories {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+#sejour-categories p {
+    background-color: var(--background-dark);
+    border: solid 2px var(--border);
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--text-white);
+    margin: 0;
+}
+
+#sejour-description {
+    font-size: 0.9em;
+    color: var(--text-dark);
+    text-align: center;
+    margin-top: 15px;
+}
+
+.sejour-section-left-hr {
+    width: 80%;
+    object-fit: border-box;
+    margin: 20px 0;
+    height: 2px;
+    background-color: var(--border);
+    border-radius: 10px;
+}
+
+.travel-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--text-black);
+    margin: 0 0 10px 0;
+}
+
+.sejour-article {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.sejour-article img {
     width: 100%;
-    border-radius: 4px;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
+    height: 100%;
+    object-fit:fill;
+    border: 1px solid var(--border);
+    border-radius: 10px;
 }
 
-hr {
-    height: 4px;
-    background-color: #b6005e;
-    border: none;
-    margin: 0.5rem auto;
-}
-
-#avis {
+.sejour-article-text {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
 }
 
-#avis .avis {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto auto;
-    gap: 0.5rem;
+
+#travel-avis-center {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    padding:0;
 }
 
-#avis .avis .stars {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+.travel-avis-travel {
+    text-decoration: none;
+    font-size: 1.5em;
+    color: var(--text-black);
+    font-weight:bold;
+}
+.travel-avis-travel:hover {
+    cursor: pointer;
+    color: var(--text-dark);
+    text-decoration: underline;
+}
+
+.travel-avis-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    width: 100%;
+    border-bottom: solid 2px var(--background-light);
+}
+
+
+.travel-avis-travel_note {
+    display: flex;
+    align-items: left;
+    gap: 10px;
+}
+
+.travel-avis-note {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 5px;
 }
 
-#chateaux {
-    display: grid;
-    position: relative;
-    width: 100%;
-
-    border: 2px solid transparent;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    border-radius: 6px;
-    gap: 1rem;
-    transition: border 100ms;
+.travel-avis-etoiles-container {
+    display: flex;
+    gap: 5px;
 }
 
-#chateaux .unchateaux {
-    margin: 10px;
-    border-color: black;
+.star {
+    display: inline-block;
+    color: var(--star);
 }
 
-#chateaux .unchateaux .imgchateaux {
-    width: 30%;
-    height: auto;
-    border-radius: 8px;
-    grid-row: 1 / 2;
+.travel-avis-note-valeur {
+    color: var(--star);
+    font-weight:bold;
+    font-size: 1em;
+    margin: 0;
 }
 
-#chateaux .unchateaux .descrchateaux {
-    grid-row: 2 / 2;
-    margin-top: 10px;
-    margin-bottom: 10px;
+
+.travel-avis-description_lire {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-#chateaux .unchateaux .lienchateaux {
-    grid-row: 2 / 2;
-}
 
-#hebergements {
-    display: grid;
-    position: relative;
-    width: 100%;
-
-    border: 2px solid transparent;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    border-radius: 6px;
-    gap: 1rem;
-    transition: border 100ms;
-}
-
-#hebergements .hebergement {
-    margin: 10px;
-    border-color: black;
-}
-
-#hebergements .hebergement .imgheberg {
-    width: 30%;
-    height: auto;
-    border-radius: 8px;
-    grid-row: 1 / 2;
-}
-
-#hebergements .hebergement .descrheberg {
-    grid-row: 2 / 2;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#hebergements .hebergement .lienheberg {
-    grid-row: 2 / 2;
-}
 </style>
