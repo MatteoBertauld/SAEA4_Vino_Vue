@@ -37,9 +37,12 @@ const isMenuOpen = false;
     </nav>
   </div>
 </header>
-  
+
 <DisplayError v-if="displayError.info.display" />
-<RouterView  />
+<div id="app-container-router-view">
+  <RouterView />
+</div>
+
 
 <footer>
 
@@ -57,15 +60,18 @@ const isMenuOpen = false;
 
 <style scoped>
 
+#app-container-router-view {
+  padding: 20px;
+}
 
 #menu-toggle {
-    display: none;
-  }
+  display: none;
+}
 
 #header-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  position: fixed;
+  position:relative;
   left: 0;
   top: 0;
   width: 100%;
@@ -162,10 +168,6 @@ footer nav .footer-link:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px;
     gap: 5px;
-  }
-
-  #header-logo-image {
-    margin-bottom: 10px; /* Ajoute un espacement sous le logo */
   }
 
   .header-link {

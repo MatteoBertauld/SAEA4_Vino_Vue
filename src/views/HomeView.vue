@@ -1,17 +1,34 @@
 <script setup>
-import Travel from '@/components/Travel.vue';
 import { useTravelsStore } from '@/stores/travels';
+import { useRouter } from 'vue-router';
+
 const travels = useTravelsStore();
-import "https://unpkg.com/lucide@latest"
+const router = useRouter();
 
 </script>
 
 <template>
+
+    <div id="homepage-container">
+        <div @click="router.push('/routedesvins')" class="homepage-image" >
+            <h1>Route des vins</h1>
+            <img src="../assets/images/routedesvins/ALSACE.png">
+        </div>
+        <div @click="router.push('/travels')" class="homepage-image" data-url="/travels">
+            <h1>Sejour</h1>
+            <img src="../assets/images/sejours/sejour1.jpg">
+        </div>
+        <div @click="router.push('/partenaires')" class="homepage-image" data-url="/partenaires">
+            <h1>Partenaire</h1>
+            <img src="../assets/images/hebergement/appartement_vignoble_familial.jpg">
+        </div>
+        
+    </div>
+
     <h1>Quelques avis de voyageurs</h1>
-    <hr id="ligne">
+    <hr class="ligne">
     
     <div id="homepage-avis-center">
-        <a id="homepage-button-avis" href="/opinions/">Découvrir tous les avis</a>
         <!-- {{travel.avis}} -->
         <!-- v-if="travel.avis.length > 0" -->
         <article v-for="travel in travels.list.slice(0, 3)" :key="travel.id" :travel="travel" class="homepage-avis-container">
@@ -29,9 +46,10 @@ import "https://unpkg.com/lucide@latest"
             </div>
             <div class="homepage-avis-description_lire">
                 <p class="description-exemple">{{ travel.avis[0].descriptionavis }}</p>
-                <a class="homepage-avis-read">{{ travel.avis.length > 1 ? "Lire les " + travel.avis.length + " avis" : "Lire l'avis" }}</a>
+                <!-- <a href="/opinions/" class="homepage-avis-read">{{ travel.avis.length > 1 ? "Lire les " + travel.avis.length + " avis" : "Lire l'avis" }}</a> -->
             </div>
         </article>
+        <a id="homepage-button-avis" class="button-classic" href="/opinions/">Découvrir tous les avis</a>
 
     </div>
     
@@ -40,22 +58,44 @@ import "https://unpkg.com/lucide@latest"
 
 <style>
 
-#homepage-button-avis {
-    background: none;
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1.5rem;
-    font-weight: bold; 
-    color: var(--text-black);
-    text-decoration: none; 
-    border: none;
+#homepage-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
-#homepage-button-avis:hover {
-    cursor: pointer;
-    color: var(--text-dark);
-    text-decoration: underline;
+.homepage-image {
+    display: grid;
+    background-color: var(--background-dark);
+    grid-template-rows: auto max(20vw,200px);
+    width: max(20vw,200px);
+    height: auto;
+    border: 3px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
+.homepage-image:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--background-dark);
+    transform:scale(1.04);
+    transition: all 0.3s ease;
+}
+
+
+.homepage-image h1 {
+    color: var(--text-white);
+}
+
+.homepage-image img {
+    
+    height: 100%;
+    width: 100%;
+    /* aspect-ratio: 1 / 1; */
+    object-fit:cover;
+}
+
 
 #homepage-avis-center {
     box-sizing: border-box;
@@ -65,7 +105,7 @@ import "https://unpkg.com/lucide@latest"
     justify-content: center;
     gap: 20px;
     width: 100%;
-    padding: 5%;
+    padding: 0 5%;
 }
 
 .homepage-avis-travel {
@@ -85,7 +125,7 @@ import "https://unpkg.com/lucide@latest"
     display: flex;
     flex-direction: column;
     height: fit-content;
-    width: 100%;
+    width: max(50%,500px);
     padding: 10px;
     border-bottom: solid 2px var(--background-light);
 }

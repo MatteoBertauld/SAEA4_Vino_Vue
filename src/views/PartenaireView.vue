@@ -16,9 +16,8 @@ const showComponent = ref(false)
 </script>
 
 <template>
-    <div class="sectionContainer">
-        <div class="filtrecontainer">
-            <!-- Les boutons mettent à jour la catégorie affichée -->
+    <div id="partenaire-center-button">
+        <div id="partenaire-filtrecontainer">
             <button class="button" @click="changerAffichage('tous')">Tous</button>
             <button class="button" @click="changerAffichage('autresociete')">Autre Société</button>
             <button class="button" @click="changerAffichage('cave')">Cave</button>
@@ -26,49 +25,48 @@ const showComponent = ref(false)
             <button class="button" @click="changerAffichage('restaurant')">Restaurant</button>
             <button class="button" @click="showComponent = !showComponent">Ajouter un partenaire</button>
         </div>
-        <div class="partenaires">
-            <article class="partenaire" v-for="partenaire in affichage" :key="partenaire.id">
-                <div>
-                    <h2>{{ partenaire.nompartenaire }}</h2>
-                    <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
-                        <div class="note">
-                            <p class="etoiles">
-                                <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 1 }" />
-                                <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 2 }" />
-                                <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 3 }" />
-                                <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 4 }" />
-                                <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 5 }" />
-                            </p>
-                            <p class="valeur">{{ partenaire.restaurant?.nombreetoilesrestaurant }}/5</p>
-                        </div>
-                    </section>
-                    <section v-if="partenaire.hotel?.categoriehotel != null">
-                        <div class="note">
-                            <p class="etoiles">
-                                <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 1 }" />
-                                <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 2 }" />
-                                <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 3 }" />
-                                <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 4 }" />
-                                <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 5 }" />
-                            </p>
-                            <p class="valeur">{{ partenaire.hotel?.categoriehotel }}/5</p>
-                        </div>
-                    </section>
-                    <p>Téléphone : {{ partenaire.telpartenaire }}</p>
-                    <p>Mail : {{ partenaire.mailpartenaire }}</p>
-                    <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
-                        <p>Spécialite culinaire : {{ partenaire.restaurant?.specialiterestaurant }}</p>
-                        <p>Type de cuisine : {{ partenaire.restaurant?.idtypecuisineNavigation.libelletypecuisine }}</p>
-                    </section>
-                    <section v-if="partenaire.hotel?.categoriehotel != null">
-                        <p>Nombre de chambres : {{ partenaire.hotel?.nombrechambreshotel }}</p>
-                    </section>
-                    <section v-if="partenaire.cave?.idtypedegustationNavigation != null">
-                        <p>Type de dégustation : {{ partenaire.cave?.idtypedegustationNavigation.libelletypedegustation }}</p>
-                    </section>
+    </div>
+    
+    <div id="partenaire-container">
+        <article class="partenaire" v-for="partenaire in affichage" :key="partenaire.id">
+            <h2>{{ partenaire.nompartenaire }}</h2>
+            <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
+                <div class="note">
+                    <p class="etoiles">
+                        <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 1 }" />
+                        <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 2 }" />
+                        <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 3 }" />
+                        <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 4 }" />
+                        <Star :class="{ checked: partenaire.restaurant?.nombreetoilesrestaurant >= 5 }" />
+                    </p>
+                    <p class="valeur">{{ partenaire.restaurant?.nombreetoilesrestaurant }}/5</p>
                 </div>
-            </article>
-        </div>
+            </section>
+            <section v-if="partenaire.hotel?.categoriehotel != null">
+                <div class="note">
+                    <p class="etoiles">
+                        <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 1 }" />
+                        <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 2 }" />
+                        <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 3 }" />
+                        <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 4 }" />
+                        <Star :class="{ checked: partenaire.hotel?.categoriehotel >= 5 }" />
+                    </p>
+                    <p class="valeur">{{ partenaire.hotel?.categoriehotel }}/5</p>
+                </div>
+            </section>
+            <p><span>Téléphone :</span> {{ partenaire.telpartenaire }}</p>
+            <p><span>Mail</span> : {{ partenaire.mailpartenaire }}</p>
+            <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
+                <p><span>Spécialite culinaire :</span> {{ partenaire.restaurant?.specialiterestaurant }}</p>
+                <p><span>Type de cuisine :</span> {{ partenaire.restaurant?.idtypecuisineNavigation.libelletypecuisine }}</p>
+            </section>
+            <section v-if="partenaire.hotel?.categoriehotel != null">
+                <p><span>Nombre de chambres :</span> {{ partenaire.hotel?.nombrechambreshotel }}</p>
+            </section>
+            <section v-if="partenaire.cave?.idtypedegustationNavigation != null">
+                <p><span>Type de dégustation :</span> {{ partenaire.cave?.idtypedegustationNavigation.libelletypedegustation }}</p>
+            </section>
+        </article>
     </div>
 
 
@@ -80,62 +78,90 @@ const showComponent = ref(false)
 </template>
 
 <style>
-.note {
+
+#partenaire-center-button {
     display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.note .etoiles .checked {
-    fill: #b6005e;
+#partenaire-filtrecontainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  justify-content: center; /* Centre les boutons horizontalement */
 }
 
-.note .valeur {
-    margin-left: 0.5rem;
+#partenaire-filtrecontainer .button {
+  background-color: var(--button);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.sectionContainer {
-    max-width: 80vw;
-    margin: auto;
+#partenaire-filtrecontainer .button:hover {
+  background-color: var(--button-hover-hard);;
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.filtrecontainer {
-    width: 80vw;
+#partenaire-filtrecontainer .button:active {
+  background-color: var(--button-hover-hard);
+  transform: translateY(0); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#partenaire-container {
     display: flex;
-    justify-content: space-around;
-}
-
-.filtrecontainer button {
-    margin: 1rem;
-    padding: 0.25rem 0.75rem;
-    border: 2px solid transparent;
-    font-size: 1.1rem;
-    background-color: #e1e8f0;
-    border-radius: 6px;
-    transition: all 100ms;
-    cursor: pointer;
-}
-
-.partenaires {
-    width: 80vw;
-    display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
-
-.partenaires .partenaire div {
-    width: 40vw;
-}
-
 
 .partenaire {
-    background-color: aliceblue;
-    height: 100%;
-    border-radius: 5%;
-    border: white solid 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centre le contenu verticalement */
+    height: 280px;
+    width: 380px;
+    background-color: var(--background-white);
+    margin-top: 10px;
+    padding: 20px; /* Augmente l'espace intérieur pour plus de confort visuel */
+    border-radius: 12px; /* Légèrement plus arrondi pour un design moderne */
+    border: 2px solid var(--border);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre douce pour un effet de carte */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Ajoute une transition pour les interactions */
 }
 
-.button:hover {
-    background-color: #bd0162;
-    color: black;
+.partenaire:hover {
+    transform: translateY(-5px); /* Légère élévation au survol */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Accentue l'ombre au survol */
+}
+
+.partenaire:active {
+    transform: translateY(0); /* Réinitialise l'élévation au clic */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Réinitialise l'ombre au clic */
+}
+
+.partenaire p {
+    font-size: 0.9rem;
+}
+.partenaire span {
+    font-weight: bold;
+    font-size: 0.9rem;
 }
 
 </style>
