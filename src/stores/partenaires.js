@@ -52,14 +52,14 @@ export const usePartenairesStore = defineStore('partenaires', () => {
         console.log("id renvoyé",id)
     try {
       console.log("succès id")
-      return await axios.get(`${urlBase}partenaire/getpartenairebyid/${id}`)
+      return await axios.get(`${urlBase}partenaires/getpartenairebyid/${id}`)
     } catch (error) {
         console.error("Erreur lors de la récupération du partenaire : ",id, error)
         return false;
     }}
 
     async function addPartenaire(partenaire) {
-        axios.post(urlBase+"Partenaire/PostPartenaire",partenaire ,{headers: {
+        axios.post(urlBase+"Partenaires/PostPartenaire",partenaire ,{headers: {
             "Authorization" : `Bearer ${loginStore.token}`
           }})
             .then(async(response) => {

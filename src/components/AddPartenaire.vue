@@ -60,6 +60,13 @@ const partnersStore = usePartenairesStore()
 
 async function add() {
     console.log(props.newPartner)
+    console.log(props.newPartner.autresociete == {});
+
+    props.newPartner.autresociete = Object.keys(props.newPartner.autresociete).length === 0 ? null : props.newPartner.autresociete;
+    props.newPartner.cave = Object.keys(props.newPartner.cave).length === 0 ? null : props.newPartner.cave;
+    props.newPartner.hotel = Object.keys(props.newPartner.hotel).length === 0 ? null : props.newPartner.hotel;
+    props.newPartner.restaurant = Object.keys(props.newPartner.restaurant).length === 0 ? null : props.newPartner.restaurant;
+
     const result = await partnersStore.addPartenaire(props.newPartner)
 }
 
