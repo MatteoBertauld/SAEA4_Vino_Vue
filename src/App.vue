@@ -27,7 +27,7 @@ const isMenuOpen = false;
     <button id="menu-toggle" @click="isMenuOpen = !isMenuOpen">☰</button>
     
     <nav id="header-topmenu">
-      <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profil' : '/login'">{{loginStore.isAuthenticated ? "profile" : "Se connecter"}}</RouterLink>|
+      <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profile' : '/login'">{{loginStore.isAuthenticated ? "Profil" : "Se connecter"}}</RouterLink>|
       <RouterLink class="header-link" to="/clients">Admin</RouterLink>|
       <RouterLink class="header-link" to="/aide">Aide</RouterLink>|
       

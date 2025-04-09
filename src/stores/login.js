@@ -1,4 +1,4 @@
-  import { ref,computed } from 'vue'
+  import { ref,computed, getCurrentInstance } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { StatusCodes } from 'http-status-codes';
@@ -81,7 +81,7 @@ export const LoginStore = defineStore('logins', () => {
     return apiClient;
   };
 
-
+  console.log(localStorage);
   
 
   return { token,user,isAuthenticated,logOut, connexion,axiosWithToken } 
