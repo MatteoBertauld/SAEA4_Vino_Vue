@@ -16,69 +16,16 @@ const props = defineProps({
             mailpartenaire: "",
             telpartenaire: "",
             adresses: [],
-            autresociete: {
-                idpartenaire: 0,
-                nompartenaire: "",
-                mailpartenaire: "",
-                telpartenaire: "",
-                idpartenaireNavigation: null,
-                propose: []
-            },
-            cave: {
-                idpartenaire: 0,
-                idtypedegustation: 0,
-                nompartenaire: "",
-                mailpartenaire: "",
-                telpartenaire: "",
-                idtypedegustationNavigation: {}
-            },
-            hotel: {
-                idpartenaire: 0,
-                nompartenaire: "",
-                mailpartenaire: "",
-                telpartenaire: "",
-                nombrechambreshotel: 0,
-                categoriehotel: 0
-            },
-            restaurant: {
-                idpartenaire: 0,
-                idtypecuisine: 0,
-                nompartenaire: "",
-                mailpartenaire: "",
-                telpartenaire: "",
-                nombreetoilesrestaurant: 0,
-                specialiterestaurant: "",
-                idpartenaireNavigation: null,
-                idtypecuisineNavigation: {},
-                repas: []
-            }
+            autresociete: {},
+            cave: {},
+            hotel: {},
+            restaurant: {}
         })
     },
     toEdit: {
         type: Boolean,
         required: false,
         default: false
-    }
-});
-
-// Watch for changes to partnerType
-watch(partnerType, (newValue) => {
-    if (newValue === "restaurant") {
-        props.newPartner.autresociete = {};
-        props.newPartner.cave = {};
-        props.newPartner.hotel = {};
-    } else if (newValue === "hotel") {
-        props.newPartner.restaurant = {};
-        props.newPartner.autresociete = {};
-        props.newPartner.cave = {};
-    } else if (newValue === "cave") {
-        props.newPartner.restaurant = {};
-        props.newPartner.autresociete = {};
-        props.newPartner.hotel = {};
-    } else if (newValue === "autresociete") {
-        props.newPartner.restaurant = {};
-        props.newPartner.cave = {};
-        props.newPartner.hotel = {};
     }
 });
 
@@ -110,10 +57,9 @@ const tastingTypes = ref([
 ]);
 
 const partnersStore = usePartenairesStore()
-// const displayError = storeDisplayError()
 
 async function add() {
-    console.log(partnersStore.list)
+    console.log(props.newPartner)
     const result = await partnersStore.addPartenaire(props.newPartner)
 }
 

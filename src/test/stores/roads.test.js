@@ -39,7 +39,9 @@ describe('Roads Store', () => {
 
   test('Ajoute une nouvelle route avec succès', async () => {
     axiosMock.post.mockResolvedValueOnce({ data: { idroute: 123 } });
+
     const result = await roadsStore.AddRoad({ ...travelMock });
+
     expect(result.error).toBe(false);
     expect(result.statusCode).toBe(202);
     expect(result.description).toContain(travelMock.titreroute);
@@ -47,7 +49,9 @@ describe('Roads Store', () => {
 
   test('Modifie une route existante avec succès', async () => {
     axiosMock.put.mockResolvedValueOnce({});
+
     const result = await roadsStore.ModifieRoad({ ...travelMock });
+
     expect(result.error).toBe(false);
     expect(result.statusCode).toBe(202);
     expect(result.description).toContain(travelMock.titreroute);
@@ -55,7 +59,9 @@ describe('Roads Store', () => {
 
   test('Supprime une route avec succès', async () => {
     axiosMock.delete.mockResolvedValueOnce({});
+
     const result = await roadsStore.DelRoad(travelMock.idroute);
+    
     expect(result.error).toBe(false);
     expect(result.statusCode).toBe(202);
   });

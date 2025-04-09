@@ -30,7 +30,6 @@ const showComponent = ref(false)
             <article class="partenaire" v-for="partenaire in affichage" :key="partenaire.id">
                 <div>
                     <h2>{{ partenaire.nompartenaire }}</h2>
-                    {{ partenaire }}
                     <section v-if="partenaire.restaurant?.nombreetoilesrestaurant != null">
                         <div class="note">
                             <p class="etoiles">
