@@ -13,7 +13,6 @@ export const useTravelsStore = defineStore('travels', () => {
   const timespans = ref([])
   const targets = ref([])
   const themes = ref([])
-  const listid = ref([])
 
   const loginStore = LoginStore()
 

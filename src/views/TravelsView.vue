@@ -25,10 +25,13 @@ const filteredTravels = computed((previous) => {
     l = targetFilter.value != 0 ? l.filter(s => s.idcategorieparticipant == targetFilter.value) : l
     l = themeFilter.value != 0 ? l.filter(s => s.idtheme == themeFilter.value) : l
 
+    console.log('travel.vineries');
+    console.log(travels.vineries);
+
     // Reset cursor on locationFilter
     if (previous["vinery"] != vineryFilter.value) {
       locationFilter.value = 0
-      document.getElementById("locationFilter").value = 0
+      document.getElementById("travels-locationFilter").value = 0
       locations.value = [];
     }
 
