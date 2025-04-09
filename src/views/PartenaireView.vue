@@ -27,7 +27,7 @@ const showComponent = ref(false)
             <button class="button" @click="showComponent = !showComponent">Ajouter un partenaire</button>
         </div>
         <div class="partenaires">
-            <article v-for="partenaire in affichage" :key="partenaire.id">
+            <article class="partenaire" v-for="partenaire in affichage" :key="partenaire.id">
                 <div>
                     <h2>{{ partenaire.nompartenaire }}</h2>
                     {{ partenaire }}
@@ -122,11 +122,11 @@ const showComponent = ref(false)
     flex-wrap: wrap;
 }
 
-.partenaires article div {
+.partenaires .partenaire div {
     width: 40vw;
 }
 
-article {
+.partenaire {
     background-color: aliceblue;
     height: 100%;
     border-radius: 5%;
