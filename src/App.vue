@@ -8,9 +8,9 @@ import { storeDisplayError } from '@/stores/displayError';
 import { LoginStore } from '@/stores/login';
 
 const loginStore = LoginStore()
-
 const displayError = storeDisplayError()
 
+console.log(history.back());
 
 const isMenuOpen = false;
 

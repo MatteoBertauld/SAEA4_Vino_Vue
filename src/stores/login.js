@@ -55,6 +55,7 @@ export const LoginStore = defineStore('logins', () => {
   };
 
   function logOut () {
+    token.value = "";
     user.value = null;
     removeToken(); 
   }
