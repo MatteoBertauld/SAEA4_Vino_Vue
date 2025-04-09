@@ -57,9 +57,10 @@
 :root {
   --background-white: #e6e9ef;
   --background-light: #d1d2d3;
+  --background-medium: #8e6978;
   --background-dark: #470023;
   --background-black: #2c0015;
-  --border: #2c0015;
+  --border: #470023;
   --text-white: hsl(0, 0%, 90%);
   --text-light: hsl(0, 0%, 75%);
   --text-medium: hsl(0, 0%, 50%);
@@ -98,11 +99,20 @@ h4, p, label,a,span {
   color: var(--text-dark);
 }
 
+.ligne {
+  height: 4px;
+  width: 50%;
+  border: none;
+  background-color: var(--border);
+  margin: 0.5rem auto;
+  border-radius: 10px;
+}
+
 .white {
     color: var(--text-white);
 }
 
-button .classic {
+.button-classic {
   display: inline-block;
   padding: 10px 20px;
   font-size: 1rem;
@@ -113,6 +123,17 @@ button .classic {
   border-radius: 5px; 
 }
 
-button .classic:hover {
+.button-classic:hover {
   background-color:  var(--button-hover-hard);
+}
+
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.note .etoiles .checked {
+  fill: #b6005e;
 }
