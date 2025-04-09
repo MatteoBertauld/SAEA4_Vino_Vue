@@ -1,4 +1,4 @@
-body{
+/* body{
   font-family: "Roboto", sans-serif;
 }
 
@@ -51,4 +51,89 @@ body{
 
 .button.button-sm {
   padding: 0.25rem 0.75rem;
+}
+*/
+
+:root {
+  --background-white: #e6e9ef;
+  --background-light: #d1d2d3;
+  --background-medium: #8e6978;
+  --background-dark: #470023;
+  --background-black: #2c0015;
+  --border: #470023;
+  --text-white: hsl(0, 0%, 90%);
+  --text-light: hsl(0, 0%, 75%);
+  --text-medium: hsl(0, 0%, 50%);
+  --text-dark: hsl(0, 0%, 25%);
+  --text-black: hsl(0, 0%, 10%);
+  --text-hover-light: #e0509d;
+  --text-hover-dark: #a13f3f;
+  --text-red: #ff1616;
+  --button: #80325c;
+  --button-light: #e0509d;
+  --button-hover-smooth: #a13f73;
+  --button-hover-hard: #470023;
+  --star: #470023;
+  --ligne: #80325c;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: var(--text-black);
+    font-weight:bold;
+}
+
+h2 {
+    font-size: 1.25em;
+    color: var(--text-black);
+    font-weight:bold;
+}
+
+h3 {
+    font-size: 1em;
+    color: var(--text-dark);
+}
+
+h4, p, label,a,span {
+  font-size: 0.75em;
+  color: var(--text-dark);
+}
+
+.ligne {
+  height: 4px;
+  width: 50%;
+  border: none;
+  background-color: var(--border);
+  margin: 0.5rem auto;
+  border-radius: 10px;
+}
+
+.white {
+    color: var(--text-white);
+}
+
+.button-classic {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold; 
+  color: #fff;
+  background-color: var(--button);
+  text-decoration: none; 
+  border-radius: 5px; 
+}
+
+.button-classic:hover {
+  background-color:  var(--button-hover-hard);
+}
+
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.note .etoiles .checked {
+  fill: #b6005e;
 }

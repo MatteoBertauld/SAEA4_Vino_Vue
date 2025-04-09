@@ -42,8 +42,8 @@ const filteredTravels = computed((previous) => {
     }
 
     // Hide locationFilter if no location for this vinery
-    document.getElementById("locationFilter").style.display = locations.value.length == 0 ? "none" : "flex"
-    document.getElementById("noVinery").style.display = l.length != 0 ? "none" : "flex"
+    document.getElementById("travels-locationFilter").style.display = locations.value.length == 0 ? "none" : "flex"
+    document.getElementById("travels-notravel").style.display = l.length != 0 ? "none" : "flex"
 
 
   }
@@ -58,47 +58,51 @@ const filteredTravels = computed((previous) => {
 </script>
 
 <template>
-  <div class="sectionContainer">
+  <div id="travels-container-addRoad-View" v-if="showComponent">
+    <AddTravel id="travels-addRoadView" />
+    <button id="travels-CloseAddRoadView" @click="showComponent = false">X</button>
+  </div>
 
-    <div class="filtrecontainer">
+  <div class="travels-container">
 
-      <button id="addTravel" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
-      <select name="" id="vineryFilter" v-model="vineryFilter">
+    <div class="travels-filtrecontainer">
+
+      <button id="travels-addTravel" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
+      
+      <select id="travels-vineryFilter" v-model="vineryFilter">
         <option :value="0">Quel vignoble ? </option>
         <option v-for="vinery in travels.vineries" :value="vinery.idcategorievignoble"> {{
           vinery.libellecategorievignoble }} </option>
       </select>
-      <select v-model="locationFilter" name="" id="locationFilter" style="display: none;">
+      
+      <select id="travels-locationFilter" v-model="locationFilter" style="display: none;">
         <option :value="0" id="baseLocation">Localité ? </option>
         <option v-for="location in locations" :value="location.idlocalite"> {{ location.libellelocalite }}</option>
       </select>
-      <select name="" id="timeFilter" v-model="timespanFilter">
+      
+      <select id="travels-timeFilter" v-model="timespanFilter">
         <option :value="0">Durée ? </option>
         <option v-for="timespan in travels.timespans" :value="timespan.idduree"> {{ timespan.libelleduree }}</option>
       </select>
-      <select name="" id="targetFilter" v-model="targetFilter">
+      
+      <select id="travels-targetFilter" v-model="targetFilter">
         <option :value="0">Pour qui ? </option>
         <option v-for="target in travels.targets" :value="target.idcategorieparticipant"> {{
           target.libellecategorieparticipant }}</option>
       </select>
-      <select name="" id="themeFilter" v-model="themeFilter">
+      
+      <select id="travels-themeFilter" v-model="themeFilter">
         <option :value="0">Une envie particulière ? </option>
         <option v-for="theme in travels.themes" :value="theme.idtheme"> {{ theme.libelletheme }}</option>
       </select>
+
     </div>
 
-    <section class="bigContainer">
-      <Travel v-for="travel in filteredTravels['list']" :travel="travel" class="travel"></Travel>
-
-      <div id="noVinery" style="display: none;">Aucun séjour n'a été trouvé pour ces paramètres.</div>
+    <div id="travels-notravel" style="display: none;">Aucun séjour n'a été trouvé pour ces paramètres.</div>
+    <section id="travels-container-travel">
+      <Travel v-for="travel in filteredTravels['list']" :travel="travel"></Travel>
     </section>
 
-  </div>
-
-
-  <div id="container-addRoad-View" v-if="showComponent">
-    <AddTravel id="addRoadView" />
-    <button id="CloseAddRoadView" @click="showComponent = false">X</button>
   </div>
 
 
@@ -106,89 +110,92 @@ const filteredTravels = computed((previous) => {
 </template>
 
 <style>
-.sectionContainer {
-  max-width: 80vw;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.bigContainer {
+.travels-filtrecontainer {
   display: flex;
   flex-wrap: wrap;
-  margin: 3vh 0 3vh 0;
-  justify-content: space-around;
+  gap: 1rem;
+  padding: 1.5rem;
+  background-color: var(--background-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-@media only screen and (max-width: 1024px) {
-  .bigContainer {
-    display: inline-flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .travel {
-    width: 100%;
-  }
-
-}
-
-.filtrecontainer {
-  width: 80vw;
-  display: flex;
-  justify-content: space-around;
-}
-
-.filtrecontainer select {
-  width: 100%;
-  margin: 1rem;
-  display: flex;
-  padding: .25rem .75rem;
-  border: 2px solid transparent;
-  font-size: 1.1rem;
-  background-color: #e1e8f0;
-  align-items: center;
-  border-radius: 6px;
-  transition: all 100ms;
+.travels-filtrecontainer button {
+  background-color: var(--background-medium);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   cursor: pointer;
-  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.travels-filtrecontainer button:hover {
+  background-color: var(--background-dark);
+}
+
+.travels-filtrecontainer select {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--background-light);
+  color: var(--text-black);
+  transition: var(--border) 0.3s ease;
+}
+
+.travels-filtrecontainer select:focus {
+  border-color: var(--background-dark);
+  outline: none;
+}
+
+.travels-filtrecontainer select option {
+  font-size: 0.9rem;
+  padding: 0.5rem;
+}
+
+#travels-container-travel {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 3vh 0;
+  justify-content: space-around;
 }
 
 
-#container-addRoad-View {
-
+#travels-container-addRoad-View {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 80vh;
   background-color: rgba(255, 255, 255, 0.95);
-  /* Optionnel : pour un fond semi-transparent */
   z-index: 9999;
-  /* Un très grand nombre pour qu'il soit au-dessus de tout */
   border: solid #333 3px;
   border-radius: 3%;
+  overflow: hidden;
 }
 
-#addRoadView {
+#travels-addRoadView {
   width: 100%;
   height: 100%;
   overflow-y: auto;
 }
 
-#CloseAddRoadView {
+#travels-CloseAddRoadView {
   position: fixed;
-  right: 10px;
-  top: 10px;
-  width: 10px;
-  height: 20px;
-  font-size: small;
+  right: 25px;
+  top: 25px;
+  width: 25px;
+  height: 25px;
   display: flex;
-  /* Utilisation de Flexbox */
   justify-content: center;
-  /* Centre le contenu horizontalement */
   align-items: center;
-  /* Centre le contenu verticalement */
   text-align: center;
-  /* Assure que le texte est centré */
 }
+
 </style>

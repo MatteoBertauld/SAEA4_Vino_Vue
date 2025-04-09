@@ -50,14 +50,14 @@
         console.log("add")
         const result = await clientsStore.AddClient(client.value)
         displayError.display(result.error, result.title,result.description);
-        if(!result.error) { router.push({name:"routedesvins"});}
+        if(!result.error) { location.reload();}
     }
 
     async function edit() {
         console.log("edit")
         const result = await clientsStore.ModifieClient(client.value)
         displayError.display(result.error, result.title,result.description);
-        if(!result.error) { router.push({name:"routedesvins"});}
+        if(!result.error) { location.reload();}
     }
 
 </script>

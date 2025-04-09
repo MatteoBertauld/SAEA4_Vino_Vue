@@ -1,6 +1,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { LoginStore } from './login'
 
 
 
@@ -13,6 +14,8 @@ export const usePartenairesStore = defineStore('partenaires', () => {
     const cave = ref([])
     const autresociete = ref([])
     const tous = ref([])
+
+    const loginStore = LoginStore()
 
     async function load() {
         return new Promise(function (resolve) {
@@ -49,21 +52,22 @@ export const usePartenairesStore = defineStore('partenaires', () => {
         console.log("id renvoyé",id)
     try {
       console.log("succès id")
-      return await axios.get(`${urlBase}partenaire/getpartenairebyid/${id}`)
+      return await axios.get(`${urlBase}partenaires/getpartenairebyid/${id}`)
     } catch (error) {
         console.error("Erreur lors de la récupération du partenaire : ",id, error)
         return false;
     }}
 
     async function addPartenaire(partenaire) {
-        var chaine = "partenaire/postpartenaire"+ travel.value;
-        var axiosInstance = loginStore.axiosWithToken()
-    
-        try {
-          await axiosInstance.post(chaine,travel)
-    
-        }catch(error){console.log(error)}
-    
+        axios.post(urlBase+"Partenaires/PostPartenaire",partenaire ,{headers: {
+            "Authorization" : `Bearer ${loginStore.token}`
+          }})
+            .then(async(response) => {
+              
+              list.value.push(await getPartenaireById(response.data.idpartenaire));
+            }).catch(error =>{
+              console.log(error)
+            })
       // Retourne la fonction pour récupérer un séjour par ID et la liste des séjours
       }
 

@@ -17,19 +17,33 @@ const props = defineProps({
     toEdit :{
         required: false,
         default: () => (true)
-    }
-    
+    },
 }); 
 
 const travelEdit = ref(props.travelEdit);
+
 const travelsStore = useTravelsStore()
 const displayError = storeDisplayError()
 
+const newTravel = ref({
+    idsejour: travelEdit.value.idsejour,
+    idduree: travelEdit.value.idduree,
+    idcategorievignoble: travelEdit.value.idcategorievignoble,
+    idcategoriesejour: travelEdit.value.idcategoriesejour,
+    idlocalite: travelEdit.value.idlocalite,
+    idtheme: travelEdit.value.idtheme,
+    idcategorieparticipant: travelEdit.value.idcategorieparticipant,
+    titresejour: travelEdit.value.titresejour,
+    photosejour: travelEdit.value.photosejour,
+    descriptionsejour: travelEdit.value.descriptionsejour,
+    prixsejour: travelEdit.value.prixsejour,
+});
 
 
 async function edit() {
         console.log(props.travelEdit)
-        const result = await travelsStore.putTravel(props.travelID,props.travelEdit,)
+        const result = await travelsStore.putTravel(props.travelID,newTravel.value);
+        location.reload();
     }
 
 function preview() {
@@ -60,6 +74,8 @@ function changeFile(event) {
 
 </script>
 
+
+
 <template>
 
     <div id="form">
@@ -69,52 +85,52 @@ function changeFile(event) {
 
                 <p class="container">
                     <label class="label">Titre du séjour</label>
-                    <input class="input" type="text" v-model="travelEdit.titresejour" placeholder="Titre du séjour">
+                    <input class="input" type="text" v-model="newTravel.titresejour" placeholder="Titre du séjour">
                 </p>
 
                 <p class="container">
                     <label class="label">Description du séjour</label>
-                    <textarea class="input" v-model="travelEdit.descriptionsejour" rows="4" cols="50" placeholder="Description du séjour"></textarea>
+                    <textarea class="input" v-model="newTravel.descriptionsejour" rows="4" cols="50" placeholder="Description du séjour"></textarea>
                 </p>
 
                 <p class="container">
                     <label class="label">Prix du séjour</label>
-                    <input class="input" type="number" v-model="travelEdit.prixsejour" placeholder="Prix du séjour" />
+                    <input class="input" type="number" v-model="newTravel.prixsejour" placeholder="Prix du séjour" />
                 </p>
 
                 <p class="container">
                     <label class="label">Durée du séjour</label>
-                    <input class="input" type="number" v-model="travelEdit.idduree" placeholder="Durée du séjour (en jours)" />
+                    <input class="input" type="number" v-model="newTravel.idduree" placeholder="Durée du séjour (en jours)" />
                 </p>
 
                 <p class="container">
                     <label class="label">Localité</label>
-                    <input class="input" type="number" v-model="travelEdit.idlocalite" placeholder="ID de la localité" />
+                    <input class="input" type="number" v-model="newTravel.idlocalite" placeholder="ID de la localité" />
                 </p>
 
                 <p class="container">
                     <label class="label">Thème</label>
-                    <input class="input" type="number" v-model="travelEdit.idtheme" placeholder="ID du thème" />
+                    <input class="input" type="number" v-model="newTravel.idtheme" placeholder="ID du thème" />
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de participants</label>
-                    <input class="input" type="number" v-model="travelEdit.idcategorieparticipant" placeholder="ID de la catégorie de participants" />
+                    <input class="input" type="number" v-model="newTravel.idcategorieparticipant" placeholder="ID de la catégorie de participants" />
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de vignoble</label>
-                    <input class="input" type="number" v-model="travelEdit.idcategorievignoble" placeholder="ID de la catégorie du vignoble" />
+                    <input class="input" type="number" v-model="newTravel.idcategorievignoble" placeholder="ID de la catégorie du vignoble" />
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de séjour</label>
-                    <input class="input" type="number" v-model="travelEdit.idcategoriesejour" placeholder="ID de la catégorie du séjour" />
+                    <input class="input" type="number" v-model="newTravel.idcategoriesejour" placeholder="ID de la catégorie du séjour" />
                 </p>
 
                 <div class="image-preview-container parent">
                     <div id="container-preview-img">
-                        <img id="preview-img" @click="preview" :src="'/src/assets/images/sejours/' + travelEdit.photosejour"/>
+                        <img id="preview-img" @click="preview" :src="'/src/assets/images/sejours/' + newTravel.photosejour"/>
                     </div>
 
                     <input id="input-preview" type="file" name="image" accept="image/*" class="file-input" @change="changeFile">
