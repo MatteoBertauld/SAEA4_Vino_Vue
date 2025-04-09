@@ -77,7 +77,26 @@ export const useTravelsStore = defineStore('travels', () => {
     
   }
 
+  async function putTravel(id, updatedTravel) {
+    try {
+      const response = await axios.put(urlBase + `Sejours/PutSejour/${id}`, updatedTravel, {
+        headers: {
+          "Authorization": `Bearer ${loginStore.token}`
+        }
+      });
+  
+      const index = list.value.findIndex(travel => travel.idsejour === id);
+      if (index !== -1) {
+        list.value[index] = await getTravelById(id);  
+      }
+  
+      console.log("Travel updated successfully", response.data);
+    } catch (error) {
+      console.error("Error updating travel:", error);
+    }
+  }
 
-  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById,load } 
+
+  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById,load,putTravel } 
 
 })
