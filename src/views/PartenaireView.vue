@@ -126,13 +126,6 @@ const showComponent = ref(false)
     width: 40vw;
 }
 
-article {
-    background-color: aliceblue;
-    height: 100%;
-    border-radius: 5%;
-    border: white solid 2px;
-}
-
 .button:hover {
     background-color: #bd0162;
     color: black;
