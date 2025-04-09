@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import "https://unpkg.com/lucide@latest"
 import { Star } from 'lucide-vue-next';
 import PutTravel from './PutTravel.vue';
+import { useTravelsStore } from '@/stores/travels';
 
 const props = defineProps({
     travel: {
@@ -10,6 +11,8 @@ const props = defineProps({
     },
 });
 const showComponent = ref(false)
+const travelStore = useTravelsStore();
+
 
 </script>
 
