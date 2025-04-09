@@ -1,0 +1,89 @@
+#ligne {
+    height: 4px;
+    width: 75px;
+    border: none;
+    background-color: #b6005e;
+    margin: 0.5rem auto;
+}
+
+.avis {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0 10vw;
+}
+
+.avis:not(:last-of-type) {
+    border-bottom: 2px solid #b6005e;
+    /* Ligne séparatrice */
+    padding-bottom: 1rem;
+    /* Ajoute un espace */
+}
+
+.avis-item {
+    border: 1px solid #b6005e;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.avis .titre-avis {
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.avis .note {
+    display: flex;
+    align-items: center;
+}
+
+.avis .note .etoiles .checked {
+    fill: #b6005e;
+}
+
+.avis .note .valeur {
+    margin-left: 0.5rem;
+}
+
+.avis .exemple-avis {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.avis .exemple-avis .titre-exemple {
+    font-style: italic;
+    font-weight: bold;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    /* Centre horizontalement */
+    white-space: nowrap;
+    /* Empêche le retour à la ligne */
+    padding: 10px 20px;
+    /* Ajuste la taille */
+    min-width: 150px;
+    /* Taille minimale */
+    text-align: center;
+    /* Centre le texte */
+}
+
+
+
+
+article {
+    margin: 10px;
+}
+
+.separateur {
+    height: 2px;
+    width: 100%;
+    border: none;
+    background-color: #b6005e;
+    margin: 1rem auto;
+}

@@ -12,6 +12,7 @@ import OneTravelView from '@/views/OneTravelView.vue'
 import PartenaireView from '@/views/PartenaireView.vue'
 import TravelSummaryView from '@/views/TravelSummaryView.vue'
 import AddPartenaire from '@/components/AddPartenaire.vue'
+import Profile from '@/views/ProfileView.vue'
 
 import ClientsView from '@/views/ClientsView.vue'
 
@@ -60,6 +61,12 @@ const router = createRouter({
       name: 'mentions-legales',
       component: MentionsLegalesView,
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
+    },
+
     {
       path: '/politique',
       name: 'politique',

@@ -11,7 +11,6 @@ export const useClientsStore = defineStore('clients', () => {
   const loginStore = LoginStore()
   const urlBase = "https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/"
   
-  GetClients();
 
   // Permission admin pour les voir tout les clients
   async function GetClients() {
@@ -188,5 +187,5 @@ export const useClientsStore = defineStore('clients', () => {
   }
     
 
-  return { list,ModifieClient,AddClient,DelClient,GetClientById };
+  return { list,ModifieClient,AddClient,DelClient,GetClientById,GetClients };
 });

@@ -5,10 +5,15 @@
     import AddClient from '@/components/AddClient.vue'
 
 
-    var clientsStore = useClientsStore();
     const loading = ref(false); 
     const searchQuery = ref('');
     const filteredClients = ref([]);    
+
+    var clientsStore = useClientsStore();
+
+    clientsStore.GetClients().then(() => {
+        filterClients(); // Appeler la fonction de filtrage après le chargement des clients
+    });
 
     function filterClients() {
         
@@ -20,7 +25,6 @@
 
     watch(() => searchQuery.value, () => filterClients())
     watch(() => clientsStore.list, () => filterClients())
-    
     const showComponent = ref(false);
 
 </script>
