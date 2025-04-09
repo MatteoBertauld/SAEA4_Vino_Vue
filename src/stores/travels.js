@@ -95,7 +95,25 @@ export const useTravelsStore = defineStore('travels', () => {
     }
   }
 
+  async function deleteTravel(id) {
 
-  return { list, vineries, timespans, locations, targets, themes,addTravel,getTravelById,load,putTravel } 
+    const response = await axios.delete(urlBase + `Sejours/DeleteSejour/${id}`, {
+        headers: {
+          "Authorization": `Bearer ${loginStore.token}`
+        }
+      })
+      .then(()=>{
+
+        window.location.href = '/travels';
+        console.log('Séjour supprimé avec succès');
+      }
+    )
+    .catch(error => {
+        console.error('Erreur lors de la suppression du séjour', error);
+    });
+    }
+     
+
+  return { list, vineries, timespans, locations, targets, themes, addTravel, getTravelById, load, putTravel, deleteTravel } 
 
 })
