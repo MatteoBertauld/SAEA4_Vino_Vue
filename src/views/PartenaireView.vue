@@ -125,8 +125,7 @@ const showComponent = ref(false)
     width: 40vw;
 }
 
-<<<<<<< HEAD
-=======
+
 .partenaire {
     background-color: aliceblue;
     height: 100%;
@@ -134,7 +133,6 @@ const showComponent = ref(false)
     border: white solid 2px;
 }
 
->>>>>>> 392cf4aecc7cb60b54d0692bdc6767e96fe83e99
 .button:hover {
     background-color: #bd0162;
     color: black;
