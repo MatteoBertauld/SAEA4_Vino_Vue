@@ -41,7 +41,7 @@ beforeEach(() => {
 })
 
 
-test('connexion réussie - email et mot de passe valides', async () => {
+test('connexion réussie : email et mot de passe valides', async () => {
     axios.post.mockResolvedValue({
         data: { token: 'fake-token' }
     })
@@ -68,7 +68,7 @@ test('connexion réussie - email et mot de passe valides', async () => {
 })
 
 
-test('connexion échouée - email ou mot de passe invalide', async () => {
+test('connexion échouée : email ou mot de passe invalide', async () => {
     axios.post.mockRejectedValue(new Error('Unauthorized'))
 
     const result = await loginStore.connexion('wrong@mail.com', 'badpass')
