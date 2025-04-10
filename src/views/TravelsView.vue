@@ -2,7 +2,8 @@
 import Travel from '@/components/Travel.vue';
 import AddTravel from '@/components/AddTravel.vue';
 import { useTravelsStore } from '@/stores/travels';
-import { ref, computed } from 'vue';
+import { ref, computed,onMounted } from 'vue';
+import { jwtDecode } from "jwt-decode";
 const travels = useTravelsStore();
 
 const vineryFilter = ref(0);
@@ -55,6 +56,23 @@ const filteredTravels = computed((previous) => {
     ;
 })
 
+var isAdmin = ref(false);
+
+onMounted(() => {
+const token = localStorage.getItem('token'); 
+if (token) {
+    try {
+        const decoded = jwtDecode(token);
+        console.log(decoded.role)
+
+        if(decoded.role =='Admin'){
+            isAdmin.value=true;
+        }
+    } catch (err) {
+        console.error('Erreur décodage JWT:', err);
+    }
+}
+});
 
 </script>
 
@@ -68,7 +86,7 @@ const filteredTravels = computed((previous) => {
 
     <div class="travels-filtrecontainer">
 
-      <button id="travels-addTravel" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
+      <button v-if="isAdmin" id="travels-addTravel" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
       
       <select id="travels-vineryFilter" v-model="vineryFilter">
         <option :value="0">Quel vignoble ? </option>

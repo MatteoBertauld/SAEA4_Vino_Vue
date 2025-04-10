@@ -1,9 +1,9 @@
 <script setup>
     import ClientSummary from '@/components/ClientSummary.vue';
-    import { ref,watch } from 'vue';
+    import { ref,watch,onMounted } from 'vue';
     import { useClientsStore } from '@/stores/client.js'
     import AddClient from '@/components/AddClient.vue'
-
+    import { jwtDecode } from "jwt-decode";
 
     const loading = ref(false); 
     const searchQuery = ref('');
@@ -27,11 +27,24 @@
     watch(() => clientsStore.list, () => filterClients())
     const showComponent = ref(false);
 
+    var isAdmin = ref(false);
+
+    onMounted(() => {
+    const token = localStorage.getItem('token'); 
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            console.log(decoded.role)
+   
+            if(decoded.role =='Admin'){
+                isAdmin.value=true;
+            }
+        } catch (err) {
+            console.error('Erreur décodage JWT:', err);
+        }
+    }
+});
 </script>
-
-
-
-
 
 <template>
 
@@ -43,7 +56,7 @@
         <input type="text" v-model="searchQuery" class="search-input" placeholder="Rechercher...">
         <button class="search-btn">🔍</button>
     </div>
-    <button class="button-client" id="addClient" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
+    <button v-if="isAdmin" class="button-client" id="addClient" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
 </div>
 
 <!-- Utilisation de v-if pour afficher le composant lorsque showComponent est vrai -->

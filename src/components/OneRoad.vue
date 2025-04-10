@@ -1,8 +1,9 @@
 <script setup>
-  import { ref } from 'vue';
+  import { ref,onMounted } from 'vue';
   import AddRoad from '@/components/AddRoad.vue';
   import { useRoadsStore } from '@/stores/roads.js';
   import { storeDisplayError } from '@/stores/displayError';
+  import { jwtDecode } from "jwt-decode";
 
   const props = defineProps({
     road: {
@@ -24,6 +25,24 @@
     displayError.display(result.error, result.title,result.description);
   }
 
+  var isAdmin = ref(false);
+
+onMounted(() => {
+const token = localStorage.getItem('token'); 
+if (token) {
+    try {
+        const decoded = jwtDecode(token);
+        console.log(decoded.role)
+
+        if(decoded.role =='Admin'){
+            isAdmin.value=true;
+        }
+    } catch (err) {
+        console.error('Erreur décodage JWT:', err);
+    }
+}
+});
+
 </script>
 
 
@@ -42,11 +61,11 @@
     
 
     <div id="container-buttons">
-      <button id="edit-button" @click="showComponent = !showComponent">
+      <button v-if="isAdmin" id="edit-button" @click="showComponent = !showComponent">
         <i class="fa-regular fa-pen-to-square" ></i>
       </button>
       <p id="idRoad">{{ road.idroute }}</p>
-      <button id="delete-button" @click="deleteRoad">
+      <button v-if="isAdmin" id="delete-button" @click="deleteRoad">
         <i class="fa-solid fa-trash" ></i>
       </button> 
     </div>

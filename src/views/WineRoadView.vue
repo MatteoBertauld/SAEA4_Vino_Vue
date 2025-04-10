@@ -1,11 +1,11 @@
 
 <script setup>
-    import { ref, computed } from 'vue';
+    import { ref, computed,onMounted } from 'vue';
 
     import RoadComponent from '@/components/OneRoad.vue';
     import AddRoad from '@/components/AddRoad.vue';
     import { useRoadsStore } from '@/stores/roads.js';
-
+    import { jwtDecode } from "jwt-decode";
     const roads = useRoadsStore()
 
     const showComponent = ref(false)
@@ -23,6 +23,24 @@
         );
     });
 
+    var isAdmin = ref(false);
+
+    onMounted(() => {
+    const token = localStorage.getItem('token'); 
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            console.log(decoded.role)
+      
+            if(decoded.role =='Admin'){
+                isAdmin.value=true;
+            }
+        } catch (err) {
+            console.error('Erreur décodage JWT:', err);
+        }
+    }
+});
+
 </script>
 
 
@@ -35,13 +53,13 @@
             <input type="text" v-model="searchQuery" class="search-input" placeholder="Rechercher...">
             <button class="search-btn">🔍</button>
         </div>
-        <button class="button-allRoad" id="addRoad" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
+        <button v-if="isAdmin" class="button-allRoad" id="addRoad" @click="showComponent = !showComponent">{{ showComponent ? '-' : '+' }}</button>
     </div>
     
 
     <div id="container-addRoad-View" v-if="showComponent">
         <AddRoad id="addRoadView" />
-        <button class="button-allRoad" id="CloseAddRoadView" @click="showComponent = false">x</button>
+        <button  class="button-allRoad" id="CloseAddRoadView" @click="showComponent = false">x</button>
     </div>
     
 

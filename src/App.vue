@@ -3,15 +3,33 @@ import './assets/main.css';
 import { RouterLink, RouterView } from 'vue-router';
 import DisplayError from './components/DisplayError.vue';
 //https://a14vinotrip-fab8apb7c9aeergn.eastus-01.azurewebsites.net/api/
-
+import { jwtDecode } from "jwt-decode";
 import { storeDisplayError } from '@/stores/displayError';
 import { LoginStore } from '@/stores/login';
+import { ref,onMounted } from 'vue';
 
 const loginStore = LoginStore()
 const displayError = storeDisplayError()
 
 const isMenuOpen = false;
 
+var isAdmin = ref(false);
+
+onMounted(() => {
+const token = localStorage.getItem('token'); 
+if (token) {
+    try {
+        const decoded = jwtDecode(token);
+        console.log(decoded.role)
+
+        if(decoded.role =='Admin'){
+            isAdmin.value=true;
+        }
+    } catch (err) {
+        console.error('Erreur décodage JWT:', err);
+    }
+}
+});
 </script>
 
 <template>
@@ -27,7 +45,7 @@ const isMenuOpen = false;
     <nav id="header-topmenu">
       <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profil' : '/login'">{{loginStore.isAuthenticated ? "Profil" : "Se connecter"}}</RouterLink>|
       <RouterLink class="header-link" to="/aide">Aide</RouterLink>|
-      <RouterLink class="header-link" to="/clients">Clients</RouterLink>
+      <RouterLink v-if="isAdmin" class="header-link" to="/clients">Clients</RouterLink>
       <RouterLink class="header-link" to="/partenaires">Partenaires</RouterLink>
       <RouterLink class="header-link" to="/routedesvins">Route des vins</RouterLink>
       <RouterLink class="header-link" to="/travels">Sejours</RouterLink>

@@ -1,9 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed,onMounted } from 'vue';
 import "https://unpkg.com/lucide@latest"
 import { Star } from 'lucide-vue-next';
 import PutTravel from './PutTravel.vue';
 import { useTravelsStore } from '@/stores/travels';
+import { jwtDecode } from "jwt-decode";
 
 const props = defineProps({
     travel: {
@@ -12,6 +13,24 @@ const props = defineProps({
 });
 const showComponent = ref(false)
 const travelStore = useTravelsStore();
+
+var isAdmin = ref(false);
+
+onMounted(() => {
+const token = localStorage.getItem('token'); 
+if (token) {
+    try {
+        const decoded = jwtDecode(token);
+        console.log(decoded.role)
+
+        if(decoded.role =='Admin'){
+            isAdmin.value=true;
+        }
+    } catch (err) {
+        console.error('Erreur décodage JWT:', err);
+    }
+}
+});
 
 
 </script>
@@ -99,10 +118,10 @@ const travelStore = useTravelsStore();
                 </div>
                 <p id="sejour-description">{{ travel.descriptionsejour }}</p>
                 <div id="sejour-button">
-                    <button id="addTravel" class="button-classic" @click="showComponent = !showComponent">
+                    <button v-if="isAdmin" id="addTravel" class="button-classic" @click="showComponent = !showComponent">
                         <i class="fa-regular fa-pen-to-square" ></i>
                     </button>
-                    <button id="deleteTravel" class="button-classic" @click="travelStore.deleteTravel(travel.idsejour)">
+                    <button v-if="isAdmin" id="deleteTravel" class="button-classic" @click="travelStore.deleteTravel(travel.idsejour)">
                         <i class="fa-solid fa-trash" ></i>
                     </button> 
                 </div>
