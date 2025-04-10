@@ -58,3 +58,14 @@ git push origin tabranche
 git config --global user.name "ton nom"
 git config --global user.email "email@gmail.com"
 ```
+
+## Installer Vitest
+
+```
+npm install -D vitest
+```
+
+## Installer Cypress
+
+```
+npm install cypress --save-dev
