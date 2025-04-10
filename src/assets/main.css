@@ -1,3 +1,8 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --background-white: #e6e9ef;
   --background-light: #d1d2d3;

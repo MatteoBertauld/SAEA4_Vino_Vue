@@ -73,6 +73,7 @@ const isMenuOpen = false;
   top: 0;
   width: 100%;
   flex-direction: row;
+  padding: 0;
   background-color: var(--background-white);
   display: flex;
   align-items: center;
