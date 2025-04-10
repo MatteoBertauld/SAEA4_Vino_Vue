@@ -28,8 +28,8 @@ export const useClientsStore = defineStore('clients', () => {
     }
   }
 
-   // Permission admin pour les voir tout les clients
-   async function GetClientById(idclient) {
+  // Permission admin pour les voir tout les clients
+  async function GetClientById(idclient) {
     if(loginStore.isAuthenticated) {
       try {
         var chaine = urlBase+"clients/getclientbyid/" + idclient
@@ -37,10 +37,71 @@ export const useClientsStore = defineStore('clients', () => {
         return await axiosInstance.get(chaine);
       }
       catch(error) {
-        console.log("erreur lors du chargements des données clients", error)
+        console.log(error)
+        switch (error.status) {
+          case 401:
+            return {
+              error: true,
+              title: "Non autorisé",
+              description: "Token d'authentification manquant ou invalide.",
+              statusCode: StatusCodes.UNAUTHORIZED
+            };
+          case 400:
+            return {
+              error: true,
+              title: "Requete incorrect",
+              description: "Les valeurs saisies sont incorrect.",
+              statusCode: StatusCodes.BAD_REQUEST
+            };
+          default:
+            return {
+              error: true,
+              title: "Erreur serveur",
+              description: "voir la console pour plus de détail",
+              statusCode: StatusCodes.INTERNAL_SERVER_ERROR
+            };
+        }
       }
     }
   }
+
+
+  async function GetMe() {
+    if(loginStore.isAuthenticated) {
+      try {
+        var chaine = urlBase+"clients/getme/"
+        var axiosInstance = loginStore.axiosWithToken()
+        return await axiosInstance.get(chaine);
+      }
+      catch(error) {
+        console.log(error)
+        switch (error.status) {
+          case 401:
+            return {
+              error: true,
+              title: "Non autorisé",
+              description: "Token d'authentification manquant ou invalide.",
+              statusCode: StatusCodes.UNAUTHORIZED
+            };
+          case 400:
+            return {
+              error: true,
+              title: "Requete incorrect",
+              description: "Les valeurs saisies sont incorrect.",
+              statusCode: StatusCodes.BAD_REQUEST
+            };
+          default:
+            return {
+              error: true,
+              title: "Erreur serveur",
+              description: "voir la console pour plus de détail",
+              statusCode: StatusCodes.INTERNAL_SERVER_ERROR
+            };
+        }
+      }
+    }
+  }
+
 
 
   async function ModifieClient(client) {
@@ -187,5 +248,5 @@ export const useClientsStore = defineStore('clients', () => {
   }
     
 
-  return { list,ModifieClient,AddClient,DelClient,GetClientById,GetClients };
+  return { list,ModifieClient,AddClient,DelClient,GetClientById,GetClients,GetMe };
 });

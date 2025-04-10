@@ -61,8 +61,6 @@
     </div>
     
 
-    <p id="token">token: {{ loginStore.token }}</p>
-
 
 </template>
   
