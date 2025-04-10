@@ -58,8 +58,6 @@
       <button class="button" id="CloseAddRoadView" @click="showComponent = false">x</button>
   </div>
   
-
-  
 </template>
 
 <style scoped>
