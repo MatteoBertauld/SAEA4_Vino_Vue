@@ -12,14 +12,14 @@ const props = defineProps({
         default: () => ({ 
             idsejour: 0,
             idduree: 0,
-            idcategorievignoble: 0,
-            idcategoriesejour: 0,
+            idcategorievignoble: null,
+            idcategoriesejour: 1, // TODO : Retirer cette columne de la BDD
             idlocalite: 0,
             idtheme: 0,
             idcategorieparticipant: 0,
-            titresejour: "string",
+            titresejour: "",
             photosejour: "NOIMAGE.jpg",
-            descriptionsejour: "string",
+            descriptionsejour: "",
             prixsejour: 0,
         })
     },
@@ -88,34 +88,39 @@ function changeFile(event) {
                     <input class="input" type="number" v-model="newTravel.prixsejour" placeholder="Prix du séjour" />
                 </p>
 
+                
                 <p class="container">
-                    <label class="label">Durée du séjour</label>
-                    <input class="input" type="number" v-model="newTravel.idduree" placeholder="Durée du séjour (en jours)" />
+                    <label class="label">Catégorie de vignoble</label>
+                    <select class="input"  v-model="newTravel.idcategorievignoble">
+                        <option v-for="vinery in travelsStore.vineries" :value="vinery.idcategorievignoble">{{ vinery.libellecategorievignoble}} </option>
+                    </select>
                 </p>
-
+                
                 <p class="container">
                     <label class="label">Localité</label>
                     <input class="input" type="number" v-model="newTravel.idlocalite" placeholder="ID de la localité" />
                 </p>
+                
+                <p class="container">
+                    <label class="label">Durée du séjour</label>
+                    <select class="input" v-model="newTravel.idduree">
+                        <option v-for="timespan in travelsStore.timespans" :value="timespan.idduree"> {{ timespan.libelleduree }}</option>
+                    </select>
+                </p>
 
                 <p class="container">
                     <label class="label">Thème</label>
-                    <input class="input" type="number" v-model="newTravel.idtheme" placeholder="ID du thème" />
+                    <select class="input" v-model="newTravel.idtheme">
+                        <option v-for="theme in travelsStore.themes" :value="theme.idtheme"> {{ theme.libelletheme }}</option>
+                    </select>
+                    
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de participants</label>
-                    <input class="input" type="number" v-model="newTravel.idcategorieparticipant" placeholder="ID de la catégorie de participants" />
-                </p>
-
-                <p class="container">
-                    <label class="label">Catégorie de vignoble</label>
-                    <input class="input" type="number" v-model="newTravel.idcategorievignoble" placeholder="ID de la catégorie du vignoble" />
-                </p>
-
-                <p class="container">
-                    <label class="label">Catégorie de séjour</label>
-                    <input class="input" type="number" v-model="newTravel.idcategoriesejour" placeholder="ID de la catégorie du séjour" />
+                    <select class="input" v-model="newTravel.idcategorieparticipant">
+                        <option v-for="target in travelsStore.targets" :value="target.idcategorieparticipant"> {{target.libellecategorieparticipant }}</option>
+                    </select>
                 </p>
 
                 <div class="image-preview-container parent">
