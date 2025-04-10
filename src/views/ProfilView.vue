@@ -89,7 +89,7 @@
 
 <hr>
 
-<h2>Vos addresse(s)</h2>
+<h2>Vos adresse(s)</h2>
 
 <div v-for="addresse in client.adresses">
    

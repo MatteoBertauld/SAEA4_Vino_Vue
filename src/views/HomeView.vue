@@ -11,15 +11,15 @@ const router = useRouter();
 
     <div id="homepage-container">
         <div @click="router.push('/routedesvins')" class="homepage-image" >
-            <h1>Route des vins</h1>
+            <h1>Routes des vins</h1>
             <img src="../assets/images/routedesvins/ALSACE.png">
         </div>
         <div @click="router.push('/travels')" class="homepage-image" data-url="/travels">
-            <h1>Sejour</h1>
+            <h1>Sejours</h1>
             <img src="../assets/images/sejours/sejour1.jpg">
         </div>
         <div @click="router.push('/partenaires')" class="homepage-image" data-url="/partenaires">
-            <h1>Partenaire</h1>
+            <h1>Partenaires</h1>
             <img src="../assets/images/hebergement/appartement_vignoble_familial.jpg">
         </div>
         

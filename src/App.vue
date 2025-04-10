@@ -45,9 +45,9 @@ if (token) {
     <nav id="header-topmenu">
       <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profil' : '/login'">{{loginStore.isAuthenticated ? "Profil" : "Se connecter"}}</RouterLink>|
       <RouterLink class="header-link" to="/aide">Aide</RouterLink>|
-      <RouterLink v-if="isAdmin" class="header-link" to="/clients">Clients</RouterLink>
+      <RouterLink v-if="loginStore.isAuthenticated" class="header-link" to="/clients">Clients</RouterLink>
       <RouterLink class="header-link" to="/partenaires">Partenaires</RouterLink>
-      <RouterLink class="header-link" to="/routedesvins">Route des vins</RouterLink>
+      <RouterLink class="header-link" to="/routedesvins">Routes des vins</RouterLink>
       <RouterLink class="header-link" to="/travels">Sejours</RouterLink>
     </nav>
   </div>
