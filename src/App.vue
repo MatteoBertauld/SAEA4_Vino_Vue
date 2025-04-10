@@ -25,7 +25,7 @@ const isMenuOpen = false;
     <button id="menu-toggle" @click="isMenuOpen = !isMenuOpen">☰</button>
     
     <nav id="header-topmenu">
-      <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profile' : '/login'">{{loginStore.isAuthenticated ? "Profil" : "Se connecter"}}</RouterLink>|
+      <RouterLink class="header-link" :to="loginStore.isAuthenticated ? '/profil' : '/login'">{{loginStore.isAuthenticated ? "Profil" : "Se connecter"}}</RouterLink>|
       <RouterLink class="header-link" to="/aide">Aide</RouterLink>|
       <RouterLink class="header-link" to="/clients">Clients</RouterLink>
       <RouterLink class="header-link" to="/partenaires">Partenaires</RouterLink>
@@ -74,7 +74,6 @@ const isMenuOpen = false;
   width: 100%;
   flex-direction: row;
   background-color: var(--background-white);
-  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content:space-evenly;

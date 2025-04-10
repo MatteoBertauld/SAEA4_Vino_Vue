@@ -93,6 +93,15 @@ const travelStore = useTravelsStore();
                     <p>{{ travel.idthemeNavigation.libelletheme }}</p>
                 </div>
                 <p id="sejour-description">{{ travel.descriptionsejour }}</p>
+                <div id="sejour-button">
+                    <button id="addTravel" class="button-classic" @click="showComponent = !showComponent">
+                        <i class="fa-regular fa-pen-to-square" ></i>
+                    </button>
+                    <button id="deleteTravel" class="button-classic" @click="travelStore.deleteTravel(travel.idsejour)">
+                        <i class="fa-solid fa-trash" ></i>
+                    </button> 
+                </div>
+                
             </div>
         </div>
 
@@ -105,6 +114,13 @@ const travelStore = useTravelsStore();
 </template>
 
 <style>
+
+#sejour-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
 
 #sejour {
     display: grid;
