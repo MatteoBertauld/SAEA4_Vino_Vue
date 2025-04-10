@@ -11,7 +11,7 @@ import { Star } from 'lucide-vue-next';
     <hr id="ligne">
     <section v-for="travel in travels.list" :key="travel.id" :travel="travel">
         <article v-if="travel.avis.length > 0" class="avis">
-            <a class="titre-avis" :href="'/travel/'+travel.idsejour">{{ travel.titresejour }}</a>
+            <a class="titre-avis" :href="'/travels/'+travel.idsejour">{{ travel.titresejour }}</a>
             <div class="avis-list">
                 <div v-for="avis in travel.avis" :key="avis.id" class="avis-item">
                     <div class="note">
