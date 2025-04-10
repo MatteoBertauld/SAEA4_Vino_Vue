@@ -44,7 +44,7 @@
             
             <div class="travel-section-titre-secondaire">
                 <div class="travel-location">
-                    <p >{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
+                    <p >{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}<br>{{ travel.idlocalite!=null ? "("+travel.idlocaliteNavigation.libellelocalite+")" : "" }}</p>
                     <!-- <p v-if="travel.idlocaliteNavigation?.libellelocalite">({{travel.idlocaliteNavigation?.libellelocalite}})</p> -->
                 </div>
                 

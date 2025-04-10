@@ -18,6 +18,11 @@ const travelStore = useTravelsStore();
 
 <template>
 
+<div id="container-addRoad-View" v-if="showComponent">
+    <PutTravel id="addRoadView" :travelEdit="travel" :travelID="travel.idsejour "/>
+    <button id="CloseAddRoadView" @click="showComponent = false">X</button>
+</div>
+
 <main class="container" v-if="travel">
     <section id="sejour">
         <div id="sejour-section-left">
@@ -88,8 +93,8 @@ const travelStore = useTravelsStore();
                 </div>
                 
                 <div id="sejour-categories">
-                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }}</p>
-                    <p>{{ travel.idcategoriesejourNavigation.libellecategoriesejour }}</p>
+                    <p>{{ travel.idcategorievignobleNavigation.libellecategorievignoble }} {{ travel.idlocalite!=null ? "("+travel.idlocaliteNavigation.libellelocalite+")" : "" }}</p>
+                    <p>{{ travel.idcategorieparticipantNavigation.libellecategorieparticipant }}</p>
                     <p>{{ travel.idthemeNavigation.libelletheme }}</p>
                 </div>
                 <p id="sejour-description">{{ travel.descriptionsejour }}</p>
@@ -128,9 +133,7 @@ const travelStore = useTravelsStore();
     gap: 20px;
 }
 
-#sejour-section-right {
-    
-}
+
 #section-fixe {
     position: fixed;
     display: flex;

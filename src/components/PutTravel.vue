@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useTravelsStore } from '@/stores/travels.js';
 import { storeDisplayError } from '@/stores/displayError';
 import router from "@/router";
@@ -39,9 +39,40 @@ const newTravel = ref({
     prixsejour: travelEdit.value.prixsejour,
 });
 
+const locations = ref([]);
+
+
+const loc = computed((previous) =>{
+
+    if (previous != undefined && previous["vinery"] != newTravel.value.idcategorievignoble) {
+        newTravel.value.idlocalite = 0
+        document.getElementById("travels-location").value = 0
+        locations.value = [];
+    }
+
+    if (newTravel.value.idcategorievignoble != 0) {
+        travelsStore.list.forEach(travel => {
+            if (travel.idlocaliteNavigation != null && !locations.value.find(l => l.idlocalite == travel.idlocaliteNavigation.idlocalite) && travel.idcategorievignoble == newTravel.value.idcategorievignoble)
+                locations.value.push(travel.idlocaliteNavigation)
+          });
+        }
+
+    return {
+    'locations': locations.value,
+    "vinery": newTravel.value.idcategorievignoble
+  }
+});
+
+
 
 async function edit() {
         console.log(props.travelEdit)
+        if(!newTravel.value.titresejour || !newTravel.value.descriptionsejour || !newTravel.value.prixsejour || !newTravel.value.idcategorievignoble || !newTravel.value.idduree || !newTravel.value.idtheme || !newTravel.value.idcategorieparticipant) {
+            displayError.display("erreur","erreur","Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
+
+        newTravel.value.idlocalite = newTravel.value.idlocalite == 0 ? null : newTravel.value.idlocalite 
         const result = await travelsStore.putTravel(props.travelID,newTravel.value);
         location.reload();
     }
@@ -98,34 +129,42 @@ function changeFile(event) {
                     <input class="input" type="number" v-model="newTravel.prixsejour" placeholder="Prix du séjour" />
                 </p>
 
+                
                 <p class="container">
-                    <label class="label">Durée du séjour</label>
-                    <input class="input" type="number" v-model="newTravel.idduree" placeholder="Durée du séjour (en jours)" />
+                    <label class="label">Catégorie de vignoble</label>
+                    <select class="input"  v-model="newTravel.idcategorievignoble">
+                        <option v-for="vinery in travelsStore.vineries" :value="vinery.idcategorievignoble">{{ vinery.libellecategorievignoble}} </option>
+                    </select>
                 </p>
-
+                
                 <p class="container">
                     <label class="label">Localité</label>
-                    <input class="input" type="number" v-model="newTravel.idlocalite" placeholder="ID de la localité" />
+                    <select class="input" id="travels-location" v-model="newTravel.idlocalite">
+                        <option :value="0" id="baseLocation">Aucune localité</option>
+                        <option v-for="location in loc['locations']" :value="location.idlocalite">{{ location.libellelocalite}} </option>
+                    </select>
+                </p>
+                
+                <p class="container">
+                    <label class="label">Durée du séjour</label>
+                    <select class="input" v-model="newTravel.idduree">
+                        <option v-for="timespan in travelsStore.timespans" :value="timespan.idduree"> {{ timespan.libelleduree }}</option>
+                    </select>
                 </p>
 
                 <p class="container">
                     <label class="label">Thème</label>
-                    <input class="input" type="number" v-model="newTravel.idtheme" placeholder="ID du thème" />
+                    <select class="input" v-model="newTravel.idtheme">
+                        <option v-for="theme in travelsStore.themes" :value="theme.idtheme"> {{ theme.libelletheme }}</option>
+                    </select>
+                    
                 </p>
 
                 <p class="container">
                     <label class="label">Catégorie de participants</label>
-                    <input class="input" type="number" v-model="newTravel.idcategorieparticipant" placeholder="ID de la catégorie de participants" />
-                </p>
-
-                <p class="container">
-                    <label class="label">Catégorie de vignoble</label>
-                    <input class="input" type="number" v-model="newTravel.idcategorievignoble" placeholder="ID de la catégorie du vignoble" />
-                </p>
-
-                <p class="container">
-                    <label class="label">Catégorie de séjour</label>
-                    <input class="input" type="number" v-model="newTravel.idcategoriesejour" placeholder="ID de la catégorie du séjour" />
+                    <select class="input" v-model="newTravel.idcategorieparticipant">
+                        <option v-for="target in travelsStore.targets" :value="target.idcategorieparticipant"> {{target.libellecategorieparticipant }}</option>
+                    </select>
                 </p>
 
                 <div class="image-preview-container parent">

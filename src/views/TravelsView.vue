@@ -88,8 +88,7 @@ const filteredTravels = computed((previous) => {
       
       <select id="travels-targetFilter" v-model="targetFilter">
         <option :value="0">Pour qui ? </option>
-        <option v-for="target in travels.targets" :value="target.idcategorieparticipant"> {{
-          target.libellecategorieparticipant }}</option>
+        <option v-for="target in travels.targets" :value="target.idcategorieparticipant"> {{target.libellecategorieparticipant }}</option>
       </select>
       
       <select id="travels-themeFilter" v-model="themeFilter">
