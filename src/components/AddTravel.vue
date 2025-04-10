@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useTravelsStore } from '@/stores/travels.js';
 import { storeDisplayError } from '@/stores/displayError';
 import router from "@/router";
@@ -9,7 +9,7 @@ const props = defineProps({
     newTravel: {
         type: Object,  // Spécifie le type attendu pour la prop
         required: false,
-        default: () => ({ 
+        default: () => (ref({ 
             idsejour: 0,
             idduree: 0,
             idcategorievignoble: null,
@@ -21,7 +21,7 @@ const props = defineProps({
             photosejour: "NOIMAGE.jpg",
             descriptionsejour: "",
             prixsejour: 0,
-        })
+        }))
     },
     toEdit: {
         type: Boolean,
@@ -33,9 +33,42 @@ const props = defineProps({
 const travelsStore = useTravelsStore()
 const displayError = storeDisplayError()
 
+const locations = ref([]);
+
+
+const loc = computed((previous) =>{
+
+    if (previous != undefined && previous["vinery"] != props.newTravel.value.idcategorievignoble) {
+        props.newTravel.value.idlocalite = 0
+        document.getElementById("travels-location").value = 0
+        locations.value = [];
+    }
+
+    if (props.newTravel.value.idcategorievignoble != 0) {
+        travelsStore.list.forEach(travel => {
+            if (travel.idlocaliteNavigation != null && !locations.value.find(l => l.idlocalite == travel.idlocaliteNavigation.idlocalite) && travel.idcategorievignoble == props.newTravel.value.idcategorievignoble)
+                locations.value.push(travel.idlocaliteNavigation)
+          });
+        }
+
+    return {
+    'locations': locations.value,
+    "vinery": props.newTravel.value.idcategorievignoble
+  }
+});
+
+
+
 async function add() {
     console.log(travelsStore.list)
-    const result = await travelsStore.addTravel(props.newTravel)
+
+    if(!props.newTravel.value.titresejour || !props.newTravel.value.descriptionsejour || !props.newTravel.value.prixsejour || !props.newTravel.value.idcategorievignoble || !props.newTravel.value.idduree || !props.newTravel.value.idtheme || !props.newTravel.value.idcategorieparticipant) {
+            displayError.display("erreur","erreur","Veuillez remplir tous les champs obligatoires.");
+            return;
+        }
+
+    props.newTravel.value.idlocalite = props.newTravel.value.idlocalite == 0 ? null : props.newTravel.value.idlocalite
+    const result = await travelsStore.addTravel(props.newTravel.value)
     
 }
 
@@ -75,42 +108,45 @@ function changeFile(event) {
 
                 <p class="container">
                     <label class="label">Titre du séjour</label>
-                    <input class="input" type="text" v-model="newTravel.titresejour" placeholder="Titre du séjour">
+                    <input class="input" type="text" v-model="newTravel.value.titresejour" placeholder="Titre du séjour">
                 </p>
 
                 <p class="container">
                     <label class="label">Description du séjour</label>
-                    <textarea class="input" v-model="newTravel.descriptionsejour" rows="4" cols="50" placeholder="Description du séjour"></textarea>
+                    <textarea class="input" v-model="newTravel.value.descriptionsejour" rows="4" cols="50" placeholder="Description du séjour"></textarea>
                 </p>
 
                 <p class="container">
                     <label class="label">Prix du séjour</label>
-                    <input class="input" type="number" v-model="newTravel.prixsejour" placeholder="Prix du séjour" />
+                    <input class="input" type="number" v-model="newTravel.value.prixsejour" placeholder="Prix du séjour" />
                 </p>
 
                 
                 <p class="container">
                     <label class="label">Catégorie de vignoble</label>
-                    <select class="input"  v-model="newTravel.idcategorievignoble">
+                    <select class="input"  v-model="newTravel.value.idcategorievignoble">
                         <option v-for="vinery in travelsStore.vineries" :value="vinery.idcategorievignoble">{{ vinery.libellecategorievignoble}} </option>
                     </select>
                 </p>
                 
                 <p class="container">
                     <label class="label">Localité</label>
-                    <input class="input" type="number" v-model="newTravel.idlocalite" placeholder="ID de la localité" />
+                    <select class="input" id="travels-location" v-model="newTravel.value.idlocalite">
+                        <option :value="0" id="baseLocation">Aucune localité</option>
+                        <option v-for="location in loc['locations']" :value="location.idlocalite">{{ location.libellelocalite}} </option>
+                    </select>
                 </p>
                 
                 <p class="container">
                     <label class="label">Durée du séjour</label>
-                    <select class="input" v-model="newTravel.idduree">
+                    <select class="input" v-model="newTravel.value.idduree">
                         <option v-for="timespan in travelsStore.timespans" :value="timespan.idduree"> {{ timespan.libelleduree }}</option>
                     </select>
                 </p>
 
                 <p class="container">
                     <label class="label">Thème</label>
-                    <select class="input" v-model="newTravel.idtheme">
+                    <select class="input" v-model="newTravel.value.idtheme">
                         <option v-for="theme in travelsStore.themes" :value="theme.idtheme"> {{ theme.libelletheme }}</option>
                     </select>
                     
@@ -118,14 +154,14 @@ function changeFile(event) {
 
                 <p class="container">
                     <label class="label">Catégorie de participants</label>
-                    <select class="input" v-model="newTravel.idcategorieparticipant">
+                    <select class="input" v-model="newTravel.value.idcategorieparticipant">
                         <option v-for="target in travelsStore.targets" :value="target.idcategorieparticipant"> {{target.libellecategorieparticipant }}</option>
                     </select>
                 </p>
 
                 <div class="image-preview-container parent">
                     <div id="container-preview-img">
-                        <img id="preview-img" @click="preview" :src="'/src/assets/images/sejours/' + newTravel.photosejour"/>
+                        <img id="preview-img" @click="preview" :src="'/src/assets/images/sejours/' + newTravel.value.photosejour"/>
                     </div>
 
                     <input id="input-preview" type="file" name="image" accept="image/*" class="file-input" @change="changeFile">
