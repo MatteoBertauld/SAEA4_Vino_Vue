@@ -129,7 +129,7 @@
         <input type="text" v-model="client.roleclient">
     </div>
     <button @click="client.a2f = !client.a2f">
-        {{ client.a2f? 'Activé la double authentification A2F' : 'Désactivé la double authentification A2F' }}
+        {{ client.a2f? 'Activer la double authentification A2F' : 'Désactiver la double authentification A2F' }}
     </button>
 </div>
 
