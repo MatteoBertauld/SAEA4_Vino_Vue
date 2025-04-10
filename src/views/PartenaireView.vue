@@ -18,12 +18,12 @@ const showComponent = ref(false)
 <template>
     <div id="partenaire-center-button">
         <div id="partenaire-filtrecontainer">
-            <button class="button" @click="changerAffichage('tous')">Tous</button>
-            <button class="button" @click="changerAffichage('autresociete')">Autre Société</button>
-            <button class="button" @click="changerAffichage('cave')">Cave</button>
-            <button class="button" @click="changerAffichage('hotel')">Hotel</button>
-            <button class="button" @click="changerAffichage('restaurant')">Restaurant</button>
-            <button class="button" @click="showComponent = !showComponent">Ajouter un partenaire</button>
+            <button id="partenaire-filtre-tous" class="button" @click="changerAffichage('tous')">Tous</button>
+            <button id="partenaire-filtre-autresociete" class="button" @click="changerAffichage('autresociete')">Autre Société</button>
+            <button id="partenaire-filtre-cave" class="button" @click="changerAffichage('cave')">Cave</button>
+            <button id="partenaire-filtre-hotel" class="button" @click="changerAffichage('hotel')">Hotel</button>
+            <button id="partenaire-filtre-restaurant" class="button" @click="changerAffichage('restaurant')">Restaurant</button>
+            <button id="partenaire-ajouter" class="button" @click="showComponent = !showComponent">Ajouter un partenaire</button>
         </div>
     </div>
     

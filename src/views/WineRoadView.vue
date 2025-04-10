@@ -39,9 +39,6 @@
     </div>
     
 
-    
-
-    <!-- Utilisation de v-if pour afficher le composant lorsque showComponent est vrai -->
     <div id="container-addRoad-View" v-if="showComponent">
         <AddRoad id="addRoadView" />
         <button class="button-allRoad" id="CloseAddRoadView" @click="showComponent = false">x</button>
@@ -50,7 +47,7 @@
 
     <div id="routes">
         <h1 v-if="filteredRoads.length === 0">Aucun résultat</h1>
-        <RoadComponent v-for="road in filteredRoads" :key="road.idroute" :road="road"/>
+        <RoadComponent id="route-composant" v-for="road in filteredRoads" :key="road.idroute" :road="road"/>
     </div>
 
 </template>
