@@ -39,7 +39,7 @@
 
             <div class="section" id="password">
                 <label class="label">Mot de Passe</label>
-                <input class="input" type="text" v-model="password">
+                <input class="input" type="password" v-model="password">
             </div>
 
             <a class="link" @click="forgetPassword = !forgetPassword">Oublier votre mot de passe?</a>
